@@ -94,13 +94,10 @@ string boolToString(bool b, std::string success, std::string fail)
 	return b ? success : fail;
 }
 
-
 /* Main. */
 int main(void)
 {
 	cout << setprecision(FLOAT_PRECISION) << endl; // Setup
-
-
 
 	auto numbers = std::make_unique<int[]>(25);
 	numbers[4] = 5;
@@ -134,13 +131,7 @@ int main(void)
 		std::cout << i << " ";
 		});
 
-
-	// cout << endl << makeLine("Removing 7: ", boolToString(matrix->removeVertex(7), "Success", "Failed"));
-	// cout << endl << makeLine("Removing 11: ", boolToString(matrix->removeVertex(11), "Success", "Failed"));
-	// cout << endl << makeLine("Removing 5: ", boolToString(matrix->removeVertex(5), "Success", "Failed"));
 	cout << endl << makeLine("Removing 34: ", boolToString(matrix->removeVertex(34), "Success", "Failed")) << endl;
-
-
 
 	cout << makeLine("Depth-First Ordering: ");
 	matrix->depthFirstTraversal(20, [](int& i) {
@@ -154,8 +145,6 @@ int main(void)
 		});
 
 	cout << endl << makeLine("Removing 1: ", boolToString(matrix->removeVertex(34), "Success", "Failed")) << endl;
-
-
 
 	cout << endl << endl << endl << endl;
 	return 0;

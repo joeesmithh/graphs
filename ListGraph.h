@@ -4,7 +4,7 @@
 #include "GraphVertex.h"
 #include "GraphInterface.h"
 
-/** A directed and weighted adjacency matrix graph. */
+/** A directed and weighted adjacency list graph. */
 template<class LabelType>
 class ListGraph: public GraphInterface<LabelType>
 {
@@ -12,8 +12,6 @@ private:
 	std::shared_ptr<GraphVertex<LabelType>> root;
 	int numVertices;
 	int numEdges;
-
-	
 
 public:
 

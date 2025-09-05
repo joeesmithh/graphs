@@ -39,7 +39,6 @@ bool ListGraph<LabelType>::add (LabelType startKey, LabelType endKey, int edgeWe
 	}
 	else
 	{
-
 		depthfirst ([startKey, endKey] (GraphVertex<LabelType>& label)
 		{
 			if (startKey == label.getLabel ())

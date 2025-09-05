@@ -13,7 +13,6 @@ private:
 	std::vector<std::shared_ptr<GraphVertex<LabelType>>> edges; // Collection of pointers to neighbors
 	int edgeCount;
 
-
 public:
 
 	GraphVertex ();

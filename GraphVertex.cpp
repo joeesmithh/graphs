@@ -16,10 +16,8 @@ void GraphVertex<LabelType>::depthFirst (std::vector<std::shared_ptr<GraphVertex
 	for (int i = 0; i < edgeCount; i++)
 	{
 		edges.at(i)->depthFirst (traversed, visit);
-		
 	}
 }
-
 
 template<class LabelType>
 GraphVertex<LabelType>::GraphVertex (const LabelType& label): label(label)
