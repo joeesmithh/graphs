@@ -1,0 +1,2 @@
+## Adjacency List/Matrix Graph ADT
+A modular graph library written in C++ with adjacency list and adjacency matrix representation, traversal algorithms, and a driver—used to validate shortest-path and connectivity algorithms.
