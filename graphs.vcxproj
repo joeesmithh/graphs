@@ -22,6 +22,7 @@
     <ClCompile Include="graphs\Driver.cpp" />
     <ClCompile Include="graphs\graph.cpp" />
     <ClCompile Include="graphs\GraphVertex.cpp" />
+    <ClCompile Include="graphs\GUIGraph.cpp" />
     <ClCompile Include="graphs\GUIVertex.cpp" />
     <ClCompile Include="graphs\ListGraph.cpp" />
     <ClCompile Include="graphs\main_window.cpp" />
@@ -37,6 +38,7 @@
   <ItemGroup>
     <ClInclude Include="graphs\GraphInterface.h" />
     <ClInclude Include="graphs\GraphVertex.h" />
+    <ClInclude Include="graphs\GUIGraph.h" />
     <ClInclude Include="graphs\GUIVertex.h" />
     <ClInclude Include="graphs\ListGraph.h" />
     <ClInclude Include="graphs\MatrixGraph.h" />

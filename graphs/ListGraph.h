@@ -42,6 +42,8 @@ public:
 		@return True if the edge is removed, or false otherwise. */
 	bool remove (LabelType start, LabelType end);
 
+	LabelType getRoot() const;
+
 	/** Gets the weight of an edge in this graph.
 		@return The weight of the specified edge.
 			If no such edge exists, returns a negative integer. */
@@ -52,7 +54,7 @@ public:
 		@param start A label for the beginning vertex.
 		@param visit A client-defined function that performs an operation on
 			or with each visited vertex. */
-	void depthFirstTraversal (LabelType start, void visit(LabelType&));
+	void depthFirstTraversal (LabelType start, const std::function<void(LabelType&)>& visit);
 
 	/** Performs a breadth-first search of this graph beginning at the given
 			vertex and calls a given function once for each vertex visited.

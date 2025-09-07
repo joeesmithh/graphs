@@ -2,6 +2,7 @@
 	@file GraphInterface.h */
 #ifndef GRAPH_INTERFACE_H_
 #define GRAPH_INTERFACE_H_
+#include <functional>
 
 template<class LabelType>
 class GraphInterface
@@ -42,7 +43,7 @@ public:
 		@param start A label for the beginning vertex.
 		@param visit A client-defined function that performs an operation on
 			or with each visited vertex. */
-	virtual void depthFirstTraversal (LabelType start, void visit (LabelType&)) = 0;
+	virtual void depthFirstTraversal(LabelType start, const std::function<void(LabelType&)>& visit) = 0;
 
 	/** Performs a breadth-first search of this graph beginning at the given
 			vertex and calls a given function once for each vertex visited.

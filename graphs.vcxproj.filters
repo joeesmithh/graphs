@@ -36,6 +36,9 @@
     <ClInclude Include="graphs\GUIVertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="graphs\GUIGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="graphs\Driver.cpp">
@@ -63,6 +66,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphs\GUIVertex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphs\GUIGraph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
