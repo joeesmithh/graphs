@@ -15,57 +15,63 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GraphInterface.h">
+    <ClInclude Include="graphs\GraphInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GraphVertex.h">
+    <ClInclude Include="graphs\GraphVertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ListGraph.h">
+    <ClInclude Include="graphs\ListGraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MatrixGraph.h">
+    <ClInclude Include="graphs\MatrixGraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PrecondViolatedExcept.h">
+    <ClInclude Include="graphs\PrecondViolatedExcept.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="graphs\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphs\GUIVertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Driver.cpp">
+    <ClCompile Include="graphs\Driver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GraphVertex.cpp">
+    <ClCompile Include="graphs\graph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ListGraph.cpp">
+    <ClCompile Include="graphs\GraphVertex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MatrixGraph.cpp">
+    <ClCompile Include="graphs\ListGraph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PrecondViolatedExcept.cpp">
+    <ClCompile Include="graphs\main_window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graph.cpp">
+    <ClCompile Include="graphs\MatrixGraph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="graphs\PrecondViolatedExcept.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main_window.cpp">
+    <ClCompile Include="graphs\stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphs\GUIVertex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="main_window.h">
+    <QtMoc Include="graphs\main_window.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="main_window.ui" />
+    <QtUic Include="graphs\main_window.ui" />
   </ItemGroup>
 </Project>
