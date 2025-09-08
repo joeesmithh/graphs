@@ -42,7 +42,7 @@ bool ListGraph<DataType>::add(DataType startKey, DataType endKey, int edgeWeight
 	{
 		depthfirst([startKey, endKey](GraphVertex<DataType>& label)
 			{
-				if (startKey == label.getLabel())
+				if (startKey == label.getData())
 				{
 					label.connectTo(std::make_shared<GraphVertex<DataType>>(endKey));
 				}
@@ -62,7 +62,7 @@ bool ListGraph<DataType>::remove(DataType start, DataType end)
 template<class DataType>
 DataType ListGraph<DataType>::getRoot() const
 {
-	return root->getLabel();
+	return root->getData();
 }
 
 template<class DataType>
@@ -76,7 +76,7 @@ void ListGraph<DataType>::depthFirstTraversal(DataType start, const std::functio
 {
 	depthfirst([visit](GraphVertex<DataType>& label) {
 
-		auto l = label.getLabel();
+		auto l = label.getData();
 		visit(l);
 		});
 }
