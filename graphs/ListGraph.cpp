@@ -81,11 +81,5 @@ void ListGraph<LabelType>::depthFirstTraversal(LabelType start, const std::funct
 		});
 }
 
-template<class LabelType>
-void ListGraph<LabelType>::breadthFirstTraversal(LabelType start, void visit(LabelType&))
-{
-}
-
-
 #endif
 

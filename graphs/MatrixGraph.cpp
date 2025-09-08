@@ -296,8 +296,4 @@ void MatrixGraph<LabelType>::depthFirstTraversal (LabelType start, void visit (L
 	}
 }
 
-template<class LabelType>
-void MatrixGraph<LabelType>::breadthFirstTraversal (LabelType start, void visit (LabelType&))
-{}
-
 #endif

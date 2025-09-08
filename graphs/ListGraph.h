@@ -56,13 +56,6 @@ public:
 			or with each visited vertex. */
 	void depthFirstTraversal (LabelType start, const std::function<void(LabelType&)>& visit);
 
-	/** Performs a breadth-first search of this graph beginning at the given
-			vertex and calls a given function once for each vertex visited.
-		@param start A label for the beginning vertex.
-		@param visit A client-defined function that performs an operation on
-			or with each visited vertex. */
-	void breadthFirstTraversal (LabelType start, void visit(LabelType&));
-
 	void depthfirst (const std::function<void (GraphVertex<LabelType>&)>& visit);
 };
 

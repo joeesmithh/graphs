@@ -45,13 +45,6 @@ public:
 			or with each visited vertex. */
 	virtual void depthFirstTraversal(LabelType start, const std::function<void(LabelType&)>& visit) = 0;
 
-	/** Performs a breadth-first search of this graph beginning at the given
-			vertex and calls a given function once for each vertex visited.
-		@param start A label for the beginning vertex.
-		@param visit A client-defined function that performs an operation on
-			or with each visited vertex. */
-	virtual void breadthFirstTraversal (LabelType start, void visit (LabelType&)) = 0;
-
 	/** Destroys this graph and frees its assigned memory. */
 	virtual ~GraphInterface ()
 	{}
