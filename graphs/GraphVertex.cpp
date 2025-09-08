@@ -11,7 +11,7 @@ template<class LabelType>
 void GraphVertex<LabelType>::depthFirst (std::vector<std::shared_ptr<GraphVertex<LabelType>>>& traversed, const std::function<void (GraphVertex<LabelType>&)>& visit)
 {
 	visit (*this);
-	auto me = std::make_shared<GraphVertex<LabelType>> (*this);
+	auto me = std::make_shared<GraphVertex<DataType>> (*this);
 	traversed.push_back (me);
 	for (int i = 0; i < edgeCount; i++)
 	{
@@ -19,8 +19,8 @@ void GraphVertex<LabelType>::depthFirst (std::vector<std::shared_ptr<GraphVertex
 	}
 }
 
-template<class LabelType>
-GraphVertex<LabelType>::GraphVertex (const LabelType& label): label(label)
+template<class DataType>
+GraphVertex<DataType>::GraphVertex (const DataType& label): label(label)
 {}
 
 template<class LabelType>

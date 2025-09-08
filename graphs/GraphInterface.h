@@ -4,7 +4,7 @@
 #define GRAPH_INTERFACE_H_
 #include <functional>
 
-template<class LabelType>
+template<class DataType>
 class GraphInterface
 {
 public:
@@ -24,26 +24,26 @@ public:
 		@param end A label for the second vertex.
 		@param edgeWeight The integer weight of the edge.
 		@return True if the edge is created, or false otherwise. */
-	virtual bool add (LabelType start, LabelType end, int edgeWeight) = 0;
+	virtual bool add (DataType start, DataType end, int edgeWeight) = 0;
 
 	/** Removes an edge from this graph. If a vertex is left with no other edges,
 			it is removed from the graph since this is a connected graph.
 		@param start A label for the vertex at the beginning of the edge.
 		@param end A label for the vertex at the end of the edge.
 		@return True if the edge is removed, or false otherwise. */
-	virtual bool remove (LabelType start, LabelType end) = 0;
+	virtual bool remove (DataType start, DataType end) = 0;
 
 	/** Gets the weight of an edge in this graph.
 		@return The weight of the specified edge.
 			If no such edge exists, returns a negative integer. */
-	virtual int getEdgeWeight (LabelType start, LabelType end) const = 0;
+	virtual int getEdgeWeight (DataType start, DataType end) const = 0;
 
 	/** Performs a depth-first search of this graph beginning at the given
 			vertex and calls a given function once for each vertex visited.
 		@param start A label for the beginning vertex.
 		@param visit A client-defined function that performs an operation on
 			or with each visited vertex. */
-	virtual void depthFirstTraversal(LabelType start, const std::function<void(LabelType&)>& visit) = 0;
+	virtual void depthFirstTraversal(DataType start, const std::function<void(DataType&)>& visit) = 0;
 
 	/** Destroys this graph and frees its assigned memory. */
 	virtual ~GraphInterface ()

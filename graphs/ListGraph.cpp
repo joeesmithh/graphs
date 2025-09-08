@@ -9,7 +9,7 @@ void ListGraph<LabelType>::depthfirst(const std::function<void(GraphVertex<Label
 {
 	if (root != nullptr)
 	{
-		std::vector<std::shared_ptr<GraphVertex<LabelType>>> traversed;
+		std::vector<std::shared_ptr<GraphVertex<DataType>>> traversed;
 		root->depthFirst(traversed, visit);
 	}
 }
@@ -36,15 +36,15 @@ bool ListGraph<LabelType>::add(LabelType startKey, LabelType endKey, int edgeWei
 {
 	if (root == nullptr)
 	{
-		root = std::make_shared<GraphVertex<LabelType>>(startKey);
+		root = std::make_shared<GraphVertex<DataType>>(startKey);
 	}
 	else
 	{
-		depthfirst([startKey, endKey](GraphVertex<LabelType>& label)
+		depthfirst([startKey, endKey](GraphVertex<DataType>& label)
 			{
 				if (startKey == label.getLabel())
 				{
-					label.connectTo(std::make_shared<GraphVertex<LabelType>>(endKey));
+					label.connectTo(std::make_shared<GraphVertex<DataType>>(endKey));
 				}
 			});
 	}
@@ -71,10 +71,10 @@ int ListGraph<LabelType>::getEdgeWeight(LabelType start, LabelType end) const
 	return 0;
 }
 
-template<class LabelType>
-void ListGraph<LabelType>::depthFirstTraversal(LabelType start, const std::function<void(LabelType&)>& visit)
+template<class DataType>
+void ListGraph<DataType>::depthFirstTraversal(DataType start, const std::function<void(DataType&)>& visit)
 {
-	depthfirst([visit](GraphVertex<LabelType>& label) {
+	depthfirst([visit](GraphVertex<DataType>& label) {
 
 		auto l = label.getLabel();
 		visit(l);
