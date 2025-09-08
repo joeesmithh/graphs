@@ -4,8 +4,8 @@
 #include "GraphVertex.h"
 #include <vector>
 
-template<class LabelType>
-void ListGraph<LabelType>::depthfirst(const std::function<void(GraphVertex<LabelType>&)>& visit)
+template<class DataType>
+void ListGraph<DataType>::depthfirst(const std::function<void(GraphVertex<DataType>&)>& visit)
 {
 	if (root != nullptr)
 	{
@@ -14,25 +14,25 @@ void ListGraph<LabelType>::depthfirst(const std::function<void(GraphVertex<Label
 	}
 }
 
-template<class LabelType>
-ListGraph<LabelType>::ListGraph()
+template<class DataType>
+ListGraph<DataType>::ListGraph()
 {
 }
 
-template<class LabelType>
-int ListGraph<LabelType>::getNumVertices() const
+template<class DataType>
+int ListGraph<DataType>::getNumVertices() const
 {
 	return numVertices;
 }
 
-template<class LabelType>
-int ListGraph<LabelType>::getNumEdges() const
+template<class DataType>
+int ListGraph<DataType>::getNumEdges() const
 {
 	return numEdges;
 }
 
-template<class LabelType>
-bool ListGraph<LabelType>::add(LabelType startKey, LabelType endKey, int edgeWeight)
+template<class DataType>
+bool ListGraph<DataType>::add(DataType startKey, DataType endKey, int edgeWeight)
 {
 	if (root == nullptr)
 	{
@@ -53,20 +53,20 @@ bool ListGraph<LabelType>::add(LabelType startKey, LabelType endKey, int edgeWei
 	return false;
 }
 
-template<class LabelType>
-bool ListGraph<LabelType>::remove(LabelType start, LabelType end)
+template<class DataType>
+bool ListGraph<DataType>::remove(DataType start, DataType end)
 {
 	return false;
 }
 
-template<class LabelType>
-LabelType ListGraph<LabelType>::getRoot() const
+template<class DataType>
+DataType ListGraph<DataType>::getRoot() const
 {
 	return root->getLabel();
 }
 
-template<class LabelType>
-int ListGraph<LabelType>::getEdgeWeight(LabelType start, LabelType end) const
+template<class DataType>
+int ListGraph<DataType>::getEdgeWeight(DataType start, DataType end) const
 {
 	return 0;
 }

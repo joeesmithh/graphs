@@ -3,12 +3,12 @@
 #include "GraphVertex.h"
 #include <algorithm>
 
-template<class LabelType>
-GraphVertex<LabelType>::GraphVertex ()
+template<class DataType>
+GraphVertex<DataType>::GraphVertex ()
 {}
 
-template<class LabelType>
-void GraphVertex<LabelType>::depthFirst (std::vector<std::shared_ptr<GraphVertex<LabelType>>>& traversed, const std::function<void (GraphVertex<LabelType>&)>& visit)
+template<class DataType>
+void GraphVertex<DataType>::depthFirst (std::vector<std::shared_ptr<GraphVertex<DataType>>>& traversed, const std::function<void (GraphVertex<DataType>&)>& visit)
 {
 	visit (*this);
 	auto me = std::make_shared<GraphVertex<DataType>> (*this);
@@ -23,14 +23,14 @@ template<class DataType>
 GraphVertex<DataType>::GraphVertex (const DataType& label): label(label)
 {}
 
-template<class LabelType>
-GraphVertex<LabelType>::GraphVertex (const LabelType& label, const std::shared_ptr<GraphVertex<LabelType>>& edgeToVertex): label (label)
+template<class DataType>
+GraphVertex<DataType>::GraphVertex (const DataType& label, const std::shared_ptr<GraphVertex<DataType>>& edgeToVertex): label (label)
 {
 	edges.push_back (edgeToVertex);
 }
 
-template<class LabelType>
-bool GraphVertex<LabelType>::connectTo (const std::shared_ptr<GraphVertex<LabelType>>& vertex)
+template<class DataType>
+bool GraphVertex<DataType>::connectTo (const std::shared_ptr<GraphVertex<DataType>>& vertex)
 {
 	bool isConnected = false;
 
@@ -50,8 +50,8 @@ bool GraphVertex<LabelType>::connectTo (const std::shared_ptr<GraphVertex<LabelT
 	return isConnected;
 }
 
-template<class LabelType>
-bool GraphVertex<LabelType>::disconnectFrom (const std::shared_ptr<GraphVertex<LabelType>>& vertex)
+template<class DataType>
+bool GraphVertex<DataType>::disconnectFrom (const std::shared_ptr<GraphVertex<DataType>>& vertex)
 {
 	bool isDisconnectable = false;
 
@@ -66,50 +66,50 @@ bool GraphVertex<LabelType>::disconnectFrom (const std::shared_ptr<GraphVertex<L
 	return isDisconnectable;
 }
 
-template<class LabelType>
-int GraphVertex<LabelType>::getEdgeCount () const
+template<class DataType>
+int GraphVertex<DataType>::getEdgeCount () const
 {
 	return edgeCount;
 }
 
-template<class LabelType>
-void GraphVertex<LabelType>::setLabel (const LabelType& newLabel)
+template<class DataType>
+void GraphVertex<DataType>::setLabel (const DataType& newLabel)
 {
 	label = newLabel;
 }
 
-template<class LabelType>
-LabelType GraphVertex<LabelType>::getLabel () const
+template<class DataType>
+DataType GraphVertex<DataType>::getLabel () const
 {
 	return label;
 }
 
-template<class LabelType>
-bool GraphVertex<LabelType>::operator>(const GraphVertex<LabelType>& other)
+template<class DataType>
+bool GraphVertex<DataType>::operator>(const GraphVertex<DataType>& other)
 {
 	return label > other.label;
 }
 
-template<class LabelType>
-bool GraphVertex<LabelType>::operator<(const GraphVertex<LabelType>& other)
+template<class DataType>
+bool GraphVertex<DataType>::operator<(const GraphVertex<DataType>& other)
 {
 	return label < other.label;
 }
 
-template<class LabelType>
-bool GraphVertex<LabelType>::operator>=(const GraphVertex<LabelType>& other)
+template<class DataType>
+bool GraphVertex<DataType>::operator>=(const GraphVertex<DataType>& other)
 {
 	return label >= other.label;
 }
 
-template<class LabelType>
-bool GraphVertex<LabelType>::operator<=(const GraphVertex<LabelType>& other)
+template<class DataType>
+bool GraphVertex<DataType>::operator<=(const GraphVertex<DataType>& other)
 {
 	return label <= other.label;
 }
 
-template<class LabelType>
-bool GraphVertex<LabelType>::operator==(const GraphVertex<LabelType>& other)
+template<class DataType>
+bool GraphVertex<DataType>::operator==(const GraphVertex<DataType>& other)
 {
 	return label == other.label;
 }
