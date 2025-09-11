@@ -3,21 +3,20 @@
 #include "ListGraph.h"
 #include "GraphVertex.h"
 #include <vector>
+#include <iostream>
 
 template<class DataType>
-void ListGraph<DataType>::depthfirst(const std::function<void(GraphVertex<DataType>&)>& visit)
+void ListGraph<DataType>::depthFirst(const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& visit)
 {
 	if (root != nullptr)
 	{
-		std::vector<std::shared_ptr<GraphVertex<DataType>>> traversed;
-		root->depthFirst(traversed, visit);
+		root->depthFirst(root, visit);
 	}
 }
 
 template<class DataType>
-ListGraph<DataType>::ListGraph()
-{
-}
+ListGraph<DataType>::ListGraph(): root(nullptr), numVertices(0), numEdges(0)
+{}
 
 template<class DataType>
 int ListGraph<DataType>::getNumVertices() const
@@ -34,21 +33,39 @@ int ListGraph<DataType>::getNumEdges() const
 template<class DataType>
 bool ListGraph<DataType>::add(DataType startKey, DataType endKey, int edgeWeight)
 {
+	// If no root, create root with startKey and connect it to new vertex with endKey
 	if (root == nullptr)
 	{
 		root = std::make_shared<GraphVertex<DataType>>(startKey);
+		root->connectTo(std::make_shared<GraphVertex<DataType>>(endKey));
+		numVertices += 2;
 	}
-	else
+	else // There was a root, search for start and end key with depth-first search
 	{
-		depthfirst([startKey, endKey](GraphVertex<DataType>& label)
-			{
-				if (startKey == label.getData())
-				{
-					label.connectTo(std::make_shared<GraphVertex<DataType>>(endKey));
-				}
-			});
+		std::shared_ptr<GraphVertex<DataType>> startPtr = nullptr;
+		std::shared_ptr<GraphVertex<DataType>> endPtr = nullptr;
+		depthFirst([startKey, endKey, &startPtr, &endPtr](std::shared_ptr<GraphVertex<DataType>> vertex)
+		{
+			if (startKey == vertex->getData())
+				startPtr = vertex;
+
+			if (endKey == vertex->getData())
+				endPtr = vertex;
+		});
+
+		// If the start key was found, connect either to existing vertex with end key, 
+		// or new vertex with end key
+		if (startPtr != nullptr)
+		{
+
+			if (endPtr != nullptr)
+				startPtr->connectTo(endPtr);
+			else
+				startPtr->connectTo(std::make_shared<GraphVertex<DataType>>(endKey));
+
+			numVertices++;
+		}
 	}
-	numVertices++;
 
 	return false;
 }
@@ -72,13 +89,13 @@ int ListGraph<DataType>::getEdgeWeight(DataType start, DataType end) const
 }
 
 template<class DataType>
-void ListGraph<DataType>::depthFirstTraversal(DataType start, const std::function<void(DataType&)>& visit)
+void ListGraph<DataType>::depthFirstTraversal(const std::function<void(DataType&)>& visit)
 {
-	depthfirst([visit](GraphVertex<DataType>& label) {
-
-		auto l = label.getData();
+	depthFirst([visit](std::shared_ptr<GraphVertex<DataType>> label)
+	{
+		DataType l = label->getData();
 		visit(l);
-		});
+	});
 }
 
 #endif

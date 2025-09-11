@@ -21,7 +21,7 @@ GraphVertex<DataType>::GraphVertex(const DataType& data,
 }
 
 template<class DataType>
-bool GraphVertex<DataType>::equalTo(const GraphVertex& other) const
+bool GraphVertex<DataType>::equalTo(const GraphVertex<DataType>& other) const
 {
 	return data == other.getData();
 }
@@ -57,7 +57,7 @@ void GraphVertex<DataType>::addPathTo()
 }
 
 template<class DataType>
-bool GraphVertex<DataType>::connectTo(const std::shared_ptr<GraphVertex<DataType>>& other)
+bool GraphVertex<DataType>::connectTo(std::shared_ptr<GraphVertex<DataType>> other)
 {
 	if (edgeCount > 0)
 	{
@@ -97,11 +97,11 @@ bool GraphVertex<DataType>::disconnectFrom(GraphVertex<DataType>& vertex)
 }
 
 template<class DataType>
-void GraphVertex<DataType>::depthFirst(const std::function<void(GraphVertex<DataType>&)>& visit)
+void GraphVertex<DataType>::depthFirst(std::shared_ptr<GraphVertex<DataType>> thisPtr, const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& visit)
 {
 	/* Only effectively visit if not previously traversed */
 	if (getTimesTraversed() == 0) {
-		visit(*this);
+		visit(thisPtr);
 	}
 
 	/* Signal we've visited this vertex another time */
@@ -112,7 +112,7 @@ void GraphVertex<DataType>::depthFirst(const std::function<void(GraphVertex<Data
 	{
 		for (auto edgeVertex = edges.begin(); edgeVertex < edges.end(); ++edgeVertex)
 		{
-			(*edgeVertex)->depthFirst(visit);
+			(*edgeVertex)->depthFirst(*edgeVertex, visit);
 		}
 	}
 

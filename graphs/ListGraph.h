@@ -54,9 +54,9 @@ public:
 		@param start A label for the beginning vertex.
 		@param visit A client-defined function that performs an operation on
 			or with each visited vertex. */
-	void depthFirstTraversal (DataType start, const std::function<void(DataType&)>& visit);
+	void depthFirstTraversal (const std::function<void(DataType&)>& visit);
 
-	void depthfirst (const std::function<void (GraphVertex<DataType>&)>& visit);
+	void depthFirst (const std::function<void (std::shared_ptr<GraphVertex<DataType>>)>& visit);
 };
 
 #include "ListGraph.cpp"

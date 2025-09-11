@@ -18,7 +18,7 @@ private:
 	/** Determine whether the given vertex contains data matching this vertex.
 		@param other The vertex to compare. 
 		@returns True if the two are equal, false otherwise. */
-	bool equalTo(const GraphVertex& other) const;
+	bool equalTo(const GraphVertex<DataType>& other) const;
 
 	void setTimesTraversed(const int& n);
 	void addTimesTraversed();
@@ -43,7 +43,7 @@ public:
 		@param vertex The vertex to connect to. 
 		@returns True if this vertex was previously connected to a vertex with data matching the given vertex,
 					false if an edge was created. */
-	bool connectTo (const std::shared_ptr<GraphVertex<DataType>>& other);
+	bool connectTo (std::shared_ptr<GraphVertex<DataType>> other);
 	
 	/** Remove an edge to another vertex if it exists.
 		@param vertex The vertex to disconnect from.
@@ -61,7 +61,7 @@ public:
 	/** Set the label value. */
 	void setData (const DataType& newData);
 
-	void depthFirst (const std::function<void (GraphVertex<DataType>&)>& visit);
+	void depthFirst (std::shared_ptr<GraphVertex<DataType>> thisPtr, const std::function<void (std::shared_ptr<GraphVertex<DataType>>)>& visit);
 
 	/** Overloaded operators */
 	bool operator >(const GraphVertex<DataType>& other);

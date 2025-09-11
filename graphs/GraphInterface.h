@@ -43,7 +43,7 @@ public:
 		@param start A label for the beginning vertex.
 		@param visit A client-defined function that performs an operation on
 			or with each visited vertex. */
-	virtual void depthFirstTraversal(DataType start, const std::function<void(DataType&)>& visit) = 0;
+	virtual void depthFirstTraversal(const std::function<void(DataType&)>& visit) = 0;
 
 	/** Destroys this graph and frees its assigned memory. */
 	virtual ~GraphInterface ()
