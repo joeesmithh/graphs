@@ -13,6 +13,11 @@ private:
 	std::vector<std::shared_ptr<GraphVertex<DataType>>> edges; // Collection of pointers to neighbors vertices
 	int edgeCount;
 
+	/** Determine whether the given vertex contains data matching this vertex.
+		@param other The vertex to compare. 
+		@returns True if the two are equal, false otherwise. */
+	bool equalTo(const GraphVertex& other) const;
+
 public:
 
 	GraphVertex ();
@@ -24,18 +29,18 @@ public:
 	/** Instantiates a new vertex with an edge to another
 		@param data The data to store in the new vertex. 
 		@param edgeToVertex The vertex to connect to. */
-	GraphVertex (const DataType& data, const std::shared_ptr<GraphVertex<DataType>>& edgeToVertex);
+	GraphVertex (const DataType& data, GraphVertex<DataType>& edgeToVertex);
 
 	/** Form an edge to another vertex if it exists.
 		@param vertex The vertex to connect to. 
 		@returns True if this vertex was previously connected to a vertex with data matching the given vertex,
 					false if an edge was created. */
-	bool connectTo (const std::shared_ptr<GraphVertex<DataType>>& vertex);
+	bool connectTo (const std::shared_ptr<GraphVertex<DataType>>& other);
 	
 	/** Remove an edge to another vertex if it exists.
 		@param vertex The vertex to disconnect from.
 		@returns True if vertex with data matching given vertex was disconnected, false otherwise. */
-	bool disconnectFrom (const std::shared_ptr<GraphVertex<DataType>>& vertex);
+	bool disconnectFrom (GraphVertex<DataType>& vertex);
 
 	/** Retrieve the edge count.
 		@returns The number of vertices that can be directed. */
@@ -47,7 +52,9 @@ public:
 
 	/** Set the label value. */
 	void setData (const DataType& newData);
-	void depthFirst (std::vector<GraphVertex<DataType>>& traversed, const std::function<void (GraphVertex<DataType>&)>& visit);
+
+	void depthFirst (std::vector<GraphVertex<DataType>>& traversed,
+		const std::function<void (GraphVertex<DataType>&)>& visit);
 
 	/** Overloaded operators */
 	bool operator >(const GraphVertex<DataType>& other);

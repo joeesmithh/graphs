@@ -2,49 +2,59 @@
 #define GRAPH_VERTEX_CPP_
 #include "GraphVertex.h"
 #include <algorithm>
+#include <iostream>
 
 template<class DataType>
 GraphVertex<DataType>::GraphVertex()
-{
-}
+{}
 
 template<class DataType>
-GraphVertex<DataType>::GraphVertex(const DataType& data) : data(data)
-{
-}
+GraphVertex<DataType>::GraphVertex(const DataType& data): data(data), edgeCount(0)
+{}
 
 template<class DataType>
 GraphVertex<DataType>::GraphVertex(const DataType& data,
-	const std::shared_ptr<GraphVertex<DataType>>& edgeToVertex) : data(data)
+								   GraphVertex<DataType>& edgeToVertex) : GraphVertex(data)
 {
 	edges.push_back(edgeToVertex);
 }
 
 template<class DataType>
-bool GraphVertex<DataType>::connectTo(const std::shared_ptr<GraphVertex<DataType>>& vertex)
+bool GraphVertex<DataType>::equalTo(const GraphVertex& other) const
 {
-	/* Check whether the caller is already connected to a vertex with data matching given vertex */
-	for (auto curVertex = begin(edges); curVertex < end(edges); ++curVertex) {
-		if (*(*curVertex) == *vertex) {
-			return true;
+	return data == other.getData();
+}
+
+template<class DataType>
+bool GraphVertex<DataType>::connectTo(const std::shared_ptr<GraphVertex<DataType>>& other)
+{
+	if (edgeCount > 0)
+	{
+		/* Check whether calling vertex is already connected to a vertex with data matching given vertex */
+		for (auto edgeVertex = edges.begin(); edgeVertex < edges.end(); edgeVertex++) {
+			if ((*edgeVertex)->equalTo(*other)) {
+				return true;
+			}
 		}
 	}
 
 	/* If caller is not connected to a vertex with data matching given vertex */
-	edges.push_back(vertex);
+	edges.push_back(other);
 	edgeCount++;
 
 	return false;
 }
 
 template<class DataType>
-bool GraphVertex<DataType>::disconnectFrom(const std::shared_ptr<GraphVertex<DataType>>& vertex)
+bool GraphVertex<DataType>::disconnectFrom(GraphVertex<DataType>& vertex)
 {
 
 	/* Check whether the caller is connected to a vertex with data matching given vertex
 		and delete the vertex from edges if so. */
-	for (auto curVertex = begin(edges); curVertex < end(edges); ++curVertex) {
-		if (*(*curVertex) == *vertex) {
+	for (auto curVertex = begin(edges); curVertex < end(edges); ++curVertex)
+	{
+		if (*curVertex == vertex)
+		{
 			edges.erase(curVertex);
 			edgeCount--;
 			return true;
@@ -56,7 +66,7 @@ bool GraphVertex<DataType>::disconnectFrom(const std::shared_ptr<GraphVertex<Dat
 
 template<class DataType>
 void GraphVertex<DataType>::depthFirst(std::vector<GraphVertex<DataType>>& traversed,
-	const std::function<void(GraphVertex<DataType>&)>& visit)
+										const std::function<void(GraphVertex<DataType>&)>& visit)
 {
 	/* Visit this vertex */
 	visit(*this);
@@ -64,13 +74,20 @@ void GraphVertex<DataType>::depthFirst(std::vector<GraphVertex<DataType>>& trave
 	/* Mark this vertex as traversed */
 	traversed.push_back(*this);
 
+	if (edgeCount > 0)
+	{
 	/* Traverse connected edges */
-	for (auto curVertex = begin(edges); curVertex < end(edges); ++curVertex) {
-		
-		/* If vertex has not been traversed, traverse */
-		auto marked = std::find(begin(traversed), end(traversed), *(*curVertex));
-		if (*marked == *end(traversed)) {
-			(*curVertex)->depthFirst(traversed, visit);
+		for (auto edgeVertex = edges.begin(); edgeVertex < edges.end(); ++edgeVertex)
+		{
+			for (auto it_traversed = traversed.begin(); it_traversed < traversed.end(); it_traversed++) {
+				if ((*edgeVertex)->equalTo(*it_traversed)) {
+					return;
+				}
+			}
+
+			/* If vertex has not been traversed, traverse */
+			std::cout << "Traversing vertex: " << (*edgeVertex)->getData() << std::endl;
+			(*edgeVertex)->depthFirst(traversed, visit);
 		}
 	}
 }
@@ -126,7 +143,7 @@ bool GraphVertex<DataType>::operator==(const GraphVertex<DataType>& other)
 template<class DataType>
 bool GraphVertex<DataType>::operator!=(const GraphVertex<DataType>& other)
 {
-	return !(data == other.data);
+	return !(this == other);
 }
 
 #endif
