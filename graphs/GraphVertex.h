@@ -12,17 +12,21 @@ private:
 	DataType data;
 	std::vector<std::shared_ptr<GraphVertex<DataType>>> edges; // Collection of pointers to neighbors vertices
 	int edgeCount;
-	bool traversed;
+	int timesTraversed;
+	int pathsTo;
 
 	/** Determine whether the given vertex contains data matching this vertex.
 		@param other The vertex to compare. 
 		@returns True if the two are equal, false otherwise. */
 	bool equalTo(const GraphVertex& other) const;
 
-	bool getTraversed() const;
-	void setTraversed(const bool& state);
+	void setTimesTraversed(const int& n);
+	void addTimesTraversed();
+	int getPathsTo() const;
+	void addPathTo();
 
 public:
+	int getTimesTraversed() const;
 
 	GraphVertex ();
 

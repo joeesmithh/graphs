@@ -10,7 +10,7 @@ GraphVertex<DataType>::GraphVertex()
 
 template<class DataType>
 GraphVertex<DataType>::GraphVertex(const DataType& data)
-	: data(data), edgeCount(0), traversed(false)
+	: data(data), edgeCount(0), timesTraversed(0), pathsTo(0)
 {}
 
 template<class DataType>
@@ -27,15 +27,33 @@ bool GraphVertex<DataType>::equalTo(const GraphVertex& other) const
 }
 
 template<class DataType>
-bool GraphVertex<DataType>::getTraversed() const
+int GraphVertex<DataType>::getTimesTraversed() const
 {
-	return traversed;
+	return timesTraversed;
 }
 
 template<class DataType>
-void GraphVertex<DataType>::setTraversed(const bool& state)
+void GraphVertex<DataType>::setTimesTraversed(const int& n)
 {
-	traversed = state;
+	timesTraversed = n;
+}
+
+template<class DataType>
+void GraphVertex<DataType>::addTimesTraversed()
+{
+	timesTraversed++;
+}
+
+template<class DataType>
+int GraphVertex<DataType>::getPathsTo() const
+{
+	return pathsTo;
+}
+
+template<class DataType>
+void GraphVertex<DataType>::addPathTo()
+{
+	pathsTo++;
 }
 
 template<class DataType>
@@ -53,6 +71,7 @@ bool GraphVertex<DataType>::connectTo(const std::shared_ptr<GraphVertex<DataType
 
 	/* If caller is not connected to a vertex with data matching given vertex */
 	edges.push_back(other);
+	other->addPathTo();
 	edgeCount++;
 
 	return false;
@@ -80,27 +99,28 @@ bool GraphVertex<DataType>::disconnectFrom(GraphVertex<DataType>& vertex)
 template<class DataType>
 void GraphVertex<DataType>::depthFirst(const std::function<void(GraphVertex<DataType>&)>& visit)
 {
-	/* Visit this vertex */
-	visit(*this);
+	/* Only effectively visit if not previously traversed */
+	if (getTimesTraversed() == 0) {
+		visit(*this);
+	}
 
-	/* Mark this vertex as traversed */
-	setTraversed(true);
+	/* Signal we've visited this vertex another time */
+	addTimesTraversed();
 
-	if (edgeCount > 0)
+	/* Iterate edges only on first visit and if edges exist */
+	if (getTimesTraversed() == 1 && edgeCount > 0)
 	{
-		/* Traverse connected edges */
 		for (auto edgeVertex = edges.begin(); edgeVertex < edges.end(); ++edgeVertex)
 		{
-			if (!(*edgeVertex)->getTraversed()) {
-
-				/* If vertex has not been traversed, traverse */
-				std::cout << "Traversing vertex: " << (*edgeVertex)->getData() << std::endl;
-				(*edgeVertex)->depthFirst(visit);
-			}		
+			(*edgeVertex)->depthFirst(visit);
 		}
 	}
 
-	setTraversed(false);
+	/* Reset times traversed if all paths to traversed */
+	if (getTimesTraversed() >= getPathsTo()) {
+		setTimesTraversed(0);
+	}
+
 }
 
 template<class DataType>
