@@ -9,7 +9,8 @@ GraphVertex<DataType>::GraphVertex()
 {}
 
 template<class DataType>
-GraphVertex<DataType>::GraphVertex(const DataType& data): data(data), edgeCount(0)
+GraphVertex<DataType>::GraphVertex(const DataType& data)
+	: data(data), edgeCount(0), traversed(false)
 {}
 
 template<class DataType>
@@ -23,6 +24,18 @@ template<class DataType>
 bool GraphVertex<DataType>::equalTo(const GraphVertex& other) const
 {
 	return data == other.getData();
+}
+
+template<class DataType>
+bool GraphVertex<DataType>::getTraversed() const
+{
+	return traversed;
+}
+
+template<class DataType>
+void GraphVertex<DataType>::setTraversed(const bool& state)
+{
+	traversed = state;
 }
 
 template<class DataType>
@@ -65,31 +78,29 @@ bool GraphVertex<DataType>::disconnectFrom(GraphVertex<DataType>& vertex)
 }
 
 template<class DataType>
-void GraphVertex<DataType>::depthFirst(std::vector<GraphVertex<DataType>>& traversed,
-										const std::function<void(GraphVertex<DataType>&)>& visit)
+void GraphVertex<DataType>::depthFirst(const std::function<void(GraphVertex<DataType>&)>& visit)
 {
 	/* Visit this vertex */
 	visit(*this);
 
 	/* Mark this vertex as traversed */
-	traversed.push_back(*this);
+	setTraversed(true);
 
 	if (edgeCount > 0)
 	{
-	/* Traverse connected edges */
+		/* Traverse connected edges */
 		for (auto edgeVertex = edges.begin(); edgeVertex < edges.end(); ++edgeVertex)
 		{
-			for (auto it_traversed = traversed.begin(); it_traversed < traversed.end(); it_traversed++) {
-				if ((*edgeVertex)->equalTo(*it_traversed)) {
-					return;
-				}
-			}
+			if (!(*edgeVertex)->getTraversed()) {
 
-			/* If vertex has not been traversed, traverse */
-			std::cout << "Traversing vertex: " << (*edgeVertex)->getData() << std::endl;
-			(*edgeVertex)->depthFirst(traversed, visit);
+				/* If vertex has not been traversed, traverse */
+				std::cout << "Traversing vertex: " << (*edgeVertex)->getData() << std::endl;
+				(*edgeVertex)->depthFirst(visit);
+			}		
 		}
 	}
+
+	setTraversed(false);
 }
 
 template<class DataType>

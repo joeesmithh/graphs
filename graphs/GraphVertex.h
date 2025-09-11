@@ -12,11 +12,15 @@ private:
 	DataType data;
 	std::vector<std::shared_ptr<GraphVertex<DataType>>> edges; // Collection of pointers to neighbors vertices
 	int edgeCount;
+	bool traversed;
 
 	/** Determine whether the given vertex contains data matching this vertex.
 		@param other The vertex to compare. 
 		@returns True if the two are equal, false otherwise. */
 	bool equalTo(const GraphVertex& other) const;
+
+	bool getTraversed() const;
+	void setTraversed(const bool& state);
 
 public:
 
@@ -53,8 +57,7 @@ public:
 	/** Set the label value. */
 	void setData (const DataType& newData);
 
-	void depthFirst (std::vector<GraphVertex<DataType>>& traversed,
-		const std::function<void (GraphVertex<DataType>&)>& visit);
+	void depthFirst (const std::function<void (GraphVertex<DataType>&)>& visit);
 
 	/** Overloaded operators */
 	bool operator >(const GraphVertex<DataType>& other);
