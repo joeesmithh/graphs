@@ -38,6 +38,7 @@ void GUIGraph<DataType>::addVertex()
 	vertices.depthFirstTraversal([](GUIVertex<int>& i)
 	{
 		std::cout << "Data: " << i.getData() << std::endl;
+		i.setColor(QColor(34, 92, 205));
 	});
 }
 

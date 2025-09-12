@@ -14,5 +14,9 @@ public:
 
 private:
 	GUIGraph<int> graph;
+
+	QAction* addVertex;
+
+	void createActions();
 };
 
