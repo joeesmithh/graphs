@@ -1,32 +1,55 @@
+#ifndef GUI_VERTEX_CPP_
+#define GUI_VERTEX_CPP_
+
 #include "GUIVertex.h"
 #include <qgraphicsscene.h>
 
-GUIVertex::GUIVertex(const int& xpos, const int& ypos, const int& width, const int& height,
-	const QString& label, QGraphicsItem* parent) : QGraphicsEllipseItem(0, 0, width, height, parent)
+
+
+template<class DataType>
+GUIVertex<DataType>::GUIVertex(const int& xpos, const int& ypos, const int& width, const int& height,
+							   const DataType& data, QGraphicsItem* parent) : data(data)
 {
-	GUIVertex::label = label;
+	ellipse = new QGraphicsEllipseItem(0, 0, width, height, parent);
+	ellipse->setPen(QPen(QColor(255, 255, 255)));
 
-	setPen(QPen(QColor(255, 255, 255)));
 
-	/* Create label text as child */
-	QGraphicsTextItem* text = new QGraphicsTextItem(label, this);
+	// Create label text as child
 	QString string = "Hi";
+	QGraphicsTextItem* text = new QGraphicsTextItem(string, ellipse);
 
-	/* Center align label text */
+	// Center align label text
 	auto text_width = text->boundingRect().width();
 	auto text_height = text->boundingRect().height();
 	text->setPos(QPointF((width - text_width) / 2, (height - text_height) / 2));
 
-	/* Position the ellipse */
-	setPos(xpos, ypos);
+	// Position the ellipse
+	ellipse->setPos(xpos, ypos);
+		
 }
 
-bool GUIVertex::operator==(const GUIVertex& other)
+template<class DataType>
+QGraphicsEllipseItem* GUIVertex<DataType>::getEllipse() const
 {
-	return (QString::compare(label, other.label, Qt::CaseInsensitive)) == 0;
+	return ellipse;
 }
 
-bool GUIVertex::operator!=(const GUIVertex& other)
+template<class DataType>
+DataType GUIVertex<DataType>::getData() const
 {
-	return !(label == other.label);
+	return data;
 }
+
+template<class DataType>
+bool GUIVertex<DataType>::operator==(const GUIVertex<DataType>& other) const
+{
+	return data == other.data;
+}
+
+template<class DataType>
+bool GUIVertex<DataType>::operator!=(const GUIVertex<DataType>& other) const
+{
+	return !(*this == other);
+}
+
+#endif // !GUI_VERTEX_CPP_

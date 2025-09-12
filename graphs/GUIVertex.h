@@ -1,14 +1,24 @@
+#ifndef GUI_VERTEX_H
+#define GUI_VERTEX_H
+
 #include <qgraphicsitem.h>
 
-class GUIVertex : public QGraphicsEllipseItem {
+template<class DataType>
+class GUIVertex {
 
 private:
-	QString label;
+	DataType data;
+	QGraphicsEllipseItem* ellipse;
 
 public:
 	GUIVertex(const int& xpos, const int& ypos, const int& width, const int& height,
-		const QString& label, QGraphicsItem* parent = (QGraphicsItem*)nullptr);
+		const DataType& data, QGraphicsItem* parent = (QGraphicsItem*)nullptr);
 
-	bool operator==(const GUIVertex& other);
-	bool operator!=(const GUIVertex& other);
+	QGraphicsEllipseItem* getEllipse() const;
+	DataType getData() const;
+
+	bool operator==(const GUIVertex<DataType>& other) const;
+	bool operator!=(const GUIVertex<DataType>& other) const;
 };
+#include "GUIVertex.cpp"
+#endif // !GUI_VERTEX_H

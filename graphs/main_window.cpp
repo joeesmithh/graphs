@@ -10,8 +10,9 @@ main_window::main_window(QWidget* parent)
 	setWindowTitle("Graphs");
 
 	/* Scene setup */
-	graph = new GUIGraph(this);
-	setCentralWidget(graph);
+	graph = GUIGraph<int>(this);
+	setCentralWidget(graph.getView());
+	graph.addVertex();
 }
 
 main_window::~main_window()

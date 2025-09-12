@@ -13,6 +13,6 @@ public:
 	~main_window();
 
 private:
-	GUIGraph* graph;
+	GUIGraph<int> graph;
 };
 
