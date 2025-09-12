@@ -9,6 +9,8 @@ main_window::main_window(QWidget* parent)
 	setupUi(this);
 	setWindowTitle("Graphs");
 
+	createDialog = new create_vertex_dialog(this);
+
 	createActions();
 
 	/* Scene setup */
@@ -24,6 +26,8 @@ main_window::~main_window()
 void main_window::createActions()
 {
 	addVertex = new QAction(tr("&Create Vertex"), this);
+	connect(addVertex, &QAction::triggered, createDialog, &QDialog::show);
+
 	QMainWindow::menuBar()->addAction(addVertex);
 }
 

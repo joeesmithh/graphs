@@ -71,13 +71,20 @@
     <ClCompile Include="graphs\GUIGraph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="create_vertex_dialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="graphs\main_window.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="create_vertex_dialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="graphs\main_window.ui" />
+    <QtUic Include="create_vertex_dialog.ui" />
   </ItemGroup>
 </Project>

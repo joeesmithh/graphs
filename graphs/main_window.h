@@ -2,6 +2,7 @@
 #include "ui_main_window.h"
 #include "ListGraph.h"
 #include "GUIGraph.h"
+#include "create_vertex_dialog.h"
 #include <cmath>
 
 class main_window : public QMainWindow, public Ui::main_windowClass
@@ -13,8 +14,9 @@ public:
 	~main_window();
 
 private:
-	GUIGraph<int> graph;
+	create_vertex_dialog* createDialog;
 
+	GUIGraph<int> graph;
 	QAction* addVertex;
 
 	void createActions();

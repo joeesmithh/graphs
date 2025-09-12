@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="create_vertex_dialog.cpp" />
     <ClCompile Include="graphs\Driver.cpp" />
     <ClCompile Include="graphs\graph.cpp" />
     <ClCompile Include="graphs\GraphVertex.cpp" />
@@ -36,6 +37,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="create_vertex_dialog.h" />
     <ClInclude Include="graphs\GraphInterface.h" />
     <ClInclude Include="graphs\GraphVertex.h" />
     <ClInclude Include="graphs\GUIGraph.h" />
@@ -47,6 +49,7 @@
     <QtMoc Include="graphs\main_window.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="create_vertex_dialog.ui" />
     <QtUic Include="graphs\main_window.ui" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
