@@ -29,7 +29,7 @@ GUIVertex<DataType>::GUIVertex(const int& xpos, const int& ypos, const int& widt
 }
 
 template<class DataType>
-void GUIVertex<DataType>::changeColor(const QColor& color)
+void GUIVertex<DataType>::setColor(const QColor& color)
 {
 	ellipse->setPen(QPen(color));
 }
