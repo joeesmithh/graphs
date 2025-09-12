@@ -15,8 +15,8 @@ GUIVertex<DataType>::GUIVertex(const int& xpos, const int& ypos, const int& widt
 
 
 	// Create label text as child
-	QString string = "Hi";
-	QGraphicsTextItem* text = new QGraphicsTextItem(string, ellipse);
+	QVariant label = data;
+	QGraphicsTextItem* text = new QGraphicsTextItem(label.toString(), ellipse);
 
 	// Center align label text
 	auto text_width = text->boundingRect().width();
