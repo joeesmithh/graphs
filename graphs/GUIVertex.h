@@ -14,6 +14,10 @@ public:
 	GUIVertex(const int& xpos, const int& ypos, const int& width, const int& height,
 		const DataType& data, QGraphicsItem* parent = (QGraphicsItem*)nullptr);
 
+	/* Assign a color to the vertex border.
+		@param color The color to assign. */
+	void setColor(const QColor& color);
+
 	QGraphicsEllipseItem* getEllipse() const;
 	DataType getData() const;
 
