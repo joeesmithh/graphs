@@ -6,11 +6,23 @@
 #include <iostream>
 
 template<class DataType>
-void ListGraph<DataType>::depthFirst(const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& visit)
+void ListGraph<DataType>::depthFirst(
+	const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& visit)
 {
 	if (root != nullptr)
 	{
-		root->depthFirst(root, visit);
+		root->depthFirst(root, traversedStack, visit);
+
+		// Reverse traverse
+		while (traversedStack.size() != 0) {
+
+			// Get and pop vertex
+			auto vertex = traversedStack.top();
+			traversedStack.pop();
+
+			// Reset traversed flag
+			vertex->setIsTraversed(false);
+		}
 	}
 }
 
@@ -74,12 +86,6 @@ template<class DataType>
 bool ListGraph<DataType>::remove(DataType start, DataType end)
 {
 	return false;
-}
-
-template<class DataType>
-DataType ListGraph<DataType>::getRoot() const
-{
-	return root->getData();
 }
 
 template<class DataType>

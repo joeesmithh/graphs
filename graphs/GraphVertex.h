@@ -2,6 +2,7 @@
 #define GRAPH_VERTEX_H_
 #include <memory>
 #include <vector>
+#include <stack>
 #include <functional>
 
 
@@ -12,64 +13,59 @@ private:
 	DataType data;
 	std::vector<std::shared_ptr<GraphVertex<DataType>>> edges; // Collection of pointers to neighbors vertices
 	int edgeCount;
-	int timesTraversed;
-	int pathsTo;
+	bool isTraversed;
 
 	/** Determine whether the given vertex contains data matching this vertex.
-		@param other The vertex to compare. 
+		@param other The vertex to compare.
 		@returns True if the two are equal, false otherwise. */
 	bool equalTo(const GraphVertex<DataType>& other) const;
 
-	void setTimesTraversed(const int& n);
-	void addTimesTraversed();
-	int getPathsTo() const;
-	void addPathTo();
+	bool getIsTraversed() const;
+
 
 public:
-	int getTimesTraversed() const;
 
-	GraphVertex ();
+	GraphVertex();
 
 	/** Instantiates a new disconnected vertex without edges.
 		@param data The data to store in the new vertex. */
-	GraphVertex (const DataType& data);
+	GraphVertex(const DataType& data);
 
-	/** Instantiates a new vertex with an edge to another
-		@param data The data to store in the new vertex. 
-		@param edgeToVertex The vertex to connect to. */
-	GraphVertex (const DataType& data, GraphVertex<DataType>& edgeToVertex);
+	void setIsTraversed(const bool& state);
 
 	/** Form an edge to another vertex if it exists.
-		@param vertex The vertex to connect to. 
+		@param vertex The vertex to connect to.
 		@returns True if this vertex was previously connected to a vertex with data matching the given vertex,
 					false if an edge was created. */
-	bool connectTo (std::shared_ptr<GraphVertex<DataType>> other);
-	
-	/** Remove an edge to another vertex if it exists.
-		@param vertex The vertex to disconnect from.
-		@returns True if vertex with data matching given vertex was disconnected, false otherwise. */
-	bool disconnectFrom (GraphVertex<DataType>& vertex);
+	bool connectTo(std::shared_ptr<GraphVertex<DataType>> other);
+
+	///** Remove an edge to another vertex if it exists.
+	//	@param vertex The vertex to disconnect from.
+	//	@returns True if vertex with data matching given vertex was disconnected, false otherwise. */
+	//bool disconnectFrom (GraphVertex<DataType>& vertex);
 
 	/** Retrieve the edge count.
 		@returns The number of vertices that can be directed. */
-	int getEdgeCount () const;
+	int getEdgeCount() const;
 
 	/** Retrieve the label value.
 		@returns The data stored in this vertex. */
-	DataType getData () const;
+	DataType getData() const;
 
 	/** Set the label value. */
-	void setData (const DataType& newData);
+	void setData(const DataType& newData);
 
-	void depthFirst (std::shared_ptr<GraphVertex<DataType>> thisPtr, const std::function<void (std::shared_ptr<GraphVertex<DataType>>)>& visit);
+	void depthFirst(std::shared_ptr<GraphVertex<DataType>> thisPtr,
+		std::stack<std::shared_ptr<GraphVertex<DataType>>>& traversedStack,
+		const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& visit);
 
 	/** Overloaded operators */
-	bool operator >(const GraphVertex<DataType>& other);
-	bool operator <(const GraphVertex<DataType>& other);
-	bool operator >=(const GraphVertex<DataType>& other);
-	bool operator <=(const GraphVertex<DataType>& other);
-	bool operator ==(const GraphVertex<DataType>& other);
-	bool operator !=(const GraphVertex<DataType>& other);
+	bool operator>(const GraphVertex<DataType>& other) const;
+	bool operator<(const GraphVertex<DataType>& other) const;
+	bool operator>=(const GraphVertex<DataType>& other) const;
+	bool operator<=(const GraphVertex<DataType>& other) const;
+	bool operator==(const GraphVertex<DataType>& other) const;
+	bool operator!=(const GraphVertex<DataType>& other) const;
 
 };
 #include "GraphVertex.cpp"

@@ -6,18 +6,13 @@
 
 template<class DataType>
 GraphVertex<DataType>::GraphVertex()
-{}
+{
+}
 
 template<class DataType>
 GraphVertex<DataType>::GraphVertex(const DataType& data)
-	: data(data), edgeCount(0), timesTraversed(0), pathsTo(0)
-{}
-
-template<class DataType>
-GraphVertex<DataType>::GraphVertex(const DataType& data,
-								   GraphVertex<DataType>& edgeToVertex) : GraphVertex(data)
+	: data(data), edgeCount(0), isTraversed(false)
 {
-	edges.push_back(edgeToVertex);
 }
 
 template<class DataType>
@@ -27,33 +22,15 @@ bool GraphVertex<DataType>::equalTo(const GraphVertex<DataType>& other) const
 }
 
 template<class DataType>
-int GraphVertex<DataType>::getTimesTraversed() const
+bool GraphVertex<DataType>::getIsTraversed() const
 {
-	return timesTraversed;
+	return isTraversed;
 }
 
 template<class DataType>
-void GraphVertex<DataType>::setTimesTraversed(const int& n)
+void GraphVertex<DataType>::setIsTraversed(const bool& state)
 {
-	timesTraversed = n;
-}
-
-template<class DataType>
-void GraphVertex<DataType>::addTimesTraversed()
-{
-	timesTraversed++;
-}
-
-template<class DataType>
-int GraphVertex<DataType>::getPathsTo() const
-{
-	return pathsTo;
-}
-
-template<class DataType>
-void GraphVertex<DataType>::addPathTo()
-{
-	pathsTo++;
+	isTraversed = state;
 }
 
 template<class DataType>
@@ -71,57 +48,38 @@ bool GraphVertex<DataType>::connectTo(std::shared_ptr<GraphVertex<DataType>> oth
 
 	/* If caller is not connected to a vertex with data matching given vertex */
 	edges.push_back(other);
-	other->addPathTo();
 	edgeCount++;
 
 	return false;
 }
 
-template<class DataType>
-bool GraphVertex<DataType>::disconnectFrom(GraphVertex<DataType>& vertex)
-{
+//template<class DataType>
+//bool GraphVertex<DataType>::disconnectFrom(GraphVertex<DataType>& vertex)
+//{
+//
+//	/* Check whether the caller is connected to a vertex with data matching given vertex
+//		and delete the vertex from edges if so. */
+//	for (auto curVertex = begin(edges); curVertex < end(edges); ++curVertex)
+//	{
+//		if (*curVertex == vertex)
+//		{
+//			edges.erase(curVertex);
+//			edgeCount--;
+//			return true;
+//		}
+//	}
+//
+//	return false;
+//}
 
-	/* Check whether the caller is connected to a vertex with data matching given vertex
-		and delete the vertex from edges if so. */
-	for (auto curVertex = begin(edges); curVertex < end(edges); ++curVertex)
-	{
-		if (*curVertex == vertex)
-		{
-			edges.erase(curVertex);
-			edgeCount--;
-			return true;
-		}
-	}
-
-	return false;
-}
-
-template<class DataType>
-void GraphVertex<DataType>::depthFirst(std::shared_ptr<GraphVertex<DataType>> thisPtr, const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& visit)
-{
-	/* Only effectively visit if not previously traversed */
-	if (getTimesTraversed() == 0) {
-		visit(thisPtr);
-	}
-
-	/* Signal we've visited this vertex another time */
-	addTimesTraversed();
-
-	/* Iterate edges only on first visit and if edges exist */
-	if (getTimesTraversed() == 1 && edgeCount > 0)
-	{
-		for (auto edgeVertex = edges.begin(); edgeVertex < edges.end(); ++edgeVertex)
-		{
-			(*edgeVertex)->depthFirst(*edgeVertex, visit);
-		}
-	}
-
-	/* Reset times traversed if all paths to traversed */
-	if (getTimesTraversed() >= getPathsTo()) {
-		setTimesTraversed(0);
-	}
-
-}
+//template<class DataType>
+//void GraphVertex<DataType>::depthFirst(std::shared_ptr<GraphVertex<DataType>> thisPtr,
+//	const std::stack<std::shared_ptr<GraphVertex<DataType>>>& traversedStack,
+//	const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& visit)
+//{
+//
+//
+//}
 
 template<class DataType>
 int GraphVertex<DataType>::getEdgeCount() const
@@ -136,45 +94,66 @@ void GraphVertex<DataType>::setData(const DataType& newData)
 }
 
 template<class DataType>
+void GraphVertex<DataType>::depthFirst(std::shared_ptr<GraphVertex<DataType>> thisPtr,
+	std::stack<std::shared_ptr<GraphVertex<DataType>>>& traversedStack,
+	const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& visit)
+{
+	if (getIsTraversed()) {
+		return;
+	}
+
+	// Flag, push to stack, and visit
+	setIsTraversed(true);
+	traversedStack.push(thisPtr);
+	visit(thisPtr);
+
+	// Depth first search all edges
+	for (auto it = edges.begin(); it < edges.end(); ++it) {
+		auto edgeVertex = *it;
+		edgeVertex->depthFirst(edgeVertex, traversedStack, visit);
+	}
+}
+
+template<class DataType>
 DataType GraphVertex<DataType>::getData() const
 {
 	return data;
 }
 
 template<class DataType>
-bool GraphVertex<DataType>::operator>(const GraphVertex<DataType>& other)
+bool GraphVertex<DataType>::operator>(const GraphVertex<DataType>& other) const
 {
 	return data > other.data;
 }
 
 template<class DataType>
-bool GraphVertex<DataType>::operator<(const GraphVertex<DataType>& other)
+bool GraphVertex<DataType>::operator<(const GraphVertex<DataType>& other) const
 {
 	return data < other.data;
 }
 
 template<class DataType>
-bool GraphVertex<DataType>::operator>=(const GraphVertex<DataType>& other)
+bool GraphVertex<DataType>::operator>=(const GraphVertex<DataType>& other) const
 {
 	return data >= other.data;
 }
 
 template<class DataType>
-bool GraphVertex<DataType>::operator<=(const GraphVertex<DataType>& other)
+bool GraphVertex<DataType>::operator<=(const GraphVertex<DataType>& other) const
 {
 	return data <= other.data;
 }
 
 template<class DataType>
-bool GraphVertex<DataType>::operator==(const GraphVertex<DataType>& other)
+bool GraphVertex<DataType>::operator==(const GraphVertex<DataType>& other) const
 {
 	return data == other.data;
 }
 
 template<class DataType>
-bool GraphVertex<DataType>::operator!=(const GraphVertex<DataType>& other)
+bool GraphVertex<DataType>::operator!=(const GraphVertex<DataType>& other) const
 {
-	return !(this == other);
+	return !(*this == other);
 }
 
 #endif

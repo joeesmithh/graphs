@@ -3,6 +3,7 @@
 #include <memory>
 #include "GraphVertex.h"
 #include "GraphInterface.h"
+#include <stack>
 
 /** A directed and weighted adjacency list graph. */
 template<class DataType>
@@ -10,6 +11,7 @@ class ListGraph: public GraphInterface<DataType>
 {
 private:
 	std::shared_ptr<GraphVertex<DataType>> root;
+	std::stack<std::shared_ptr<GraphVertex<DataType>>> traversedStack;
 	int numVertices;
 	int numEdges;
 
@@ -41,8 +43,6 @@ public:
 		@param end A label for the vertex at the end of the edge.
 		@return True if the edge is removed, or false otherwise. */
 	bool remove (DataType start, DataType end);
-
-	DataType getRoot() const;
 
 	/** Gets the weight of an edge in this graph.
 		@return The weight of the specified edge.
