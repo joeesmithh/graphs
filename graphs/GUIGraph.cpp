@@ -18,20 +18,23 @@ void GUIGraph::addVertex(const int& xPos, const int& yPos,
 	auto newVertex = std::make_shared<GUIVertex>(0, 0, 30, 30, label);
 
 	// Initialize new vertex to connect to, if needed
-	auto connectVertex = std::make_shared<GUIVertex>(xPos*40, yPos*40, 30, 30, label_connectTo);
+	auto connectVertex = std::make_shared<GUIVertex>(xPos * 40, yPos * 40, 30, 30, label_connectTo);
 
-	// Connect the two vertices based on key values
-	vertices.add(*newVertex, *connectVertex, [this](GUIVertex& left, GUIVertex& right) {
-
-		// Initialize newly created vertices in scene
+	auto addAction = [this](GUIVertex& left, GUIVertex& right) {
+		// Initialize newly created vertices in scene if needed
 		if (left.getEllipse() == nullptr) {
 			left.display();
 			scene->addItem(left.getEllipse());
 		}
 
-		right.display();
-		scene->addItem(right.getEllipse());
-		}, 1);
+		if (right.getEllipse() == nullptr) {
+			right.display();
+			scene->addItem(right.getEllipse());
+		}
+		};
+
+	// Connect the two vertices based on key values
+	vertices.add(*newVertex, *connectVertex, addAction, 1);
 }
 
 void GUIGraph::traverse()
