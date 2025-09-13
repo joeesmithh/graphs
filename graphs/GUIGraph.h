@@ -1,17 +1,16 @@
-#ifndef GUI_GRAPH_H
-#define GUI_GRAPH_H
-
 #include <qgraphicsview.h>
+#include <qstring.h>
 #include "ListGraph.h"
 #include "GUIVertex.h"
 
-template<class DataType>
-class GUIGraph {
+class GUIGraph : public QObject {
+
+	Q_OBJECT
 
 public:
 	GUIGraph(QWidget* parent = nullptr);
 	QGraphicsView* getView();
-	void addVertex();
+	
 
 private:
 	int VERTEX_SCALE = 32;
@@ -19,9 +18,12 @@ private:
 
 	QGraphicsView* view;
 	QGraphicsScene* scene;
-	ListGraph<GUIVertex<DataType>> vertices;
+	ListGraph<GUIVertex> vertices;
 
 	void populateGraph(const int& vertices);
+
+public slots:
+	void addVertex(const int& cPos, const int& yPos,
+		const QString& label, const QString& label_connectTo);
+
 };
-#include "GUIGraph.cpp"
-#endif // !GUI_GRAPH_H

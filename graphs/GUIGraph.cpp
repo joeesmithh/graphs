@@ -1,16 +1,13 @@
-#ifndef GUI_GRAPH_CPP
-#define GUI_GRAPH_CPP
 #include "GUIGraph.h"
-#include "GUIVertex.h"
+#include <memory>
 
-template<class DataType>
-GUIGraph<DataType>::GUIGraph(QWidget* parent)
+GUIGraph::GUIGraph(QWidget* parent)
 {
 	scene = new QGraphicsScene();
 	view = new QGraphicsView(scene, parent);
 	view->setScene(scene);
 	view->setRenderHint(QPainter::RenderHint::TextAntialiasing);
-
+	
 	//populateGraph(50);
 
 	/*auto func = [](GUIVertex* vertex) {
@@ -18,32 +15,25 @@ GUIGraph<DataType>::GUIGraph(QWidget* parent)
 	};*/
 }
 
-template<class DataType>
-QGraphicsView* GUIGraph<DataType>::getView()
+QGraphicsView* GUIGraph::getView()
 {
 	return view;
 }
 
-template<class DataType>
-void GUIGraph<DataType>::addVertex()
+void GUIGraph::addVertex(const int& xPos, const int& yPos,
+	const QString& label, const QString& label_connectTo)
 {
-
-	GUIVertex<int> vert(0, 0, 30, 30, 8);
-	GUIVertex<int> vert2(-50, -50, 30, 30, 12);
-	scene->addItem(vert.getEllipse());
-	scene->addItem(vert2.getEllipse());
-
-	vertices.add(vert, vert2, 1);
-
-	vertices.depthFirstTraversal([](GUIVertex<int>& i)
-	{
-		std::cout << "Data: " << i.getData() << std::endl;
-		i.setColor(QColor(34, 92, 205));
-		}, [](GUIVertex<int>& i) {});
+	auto newVertex = std::make_shared<GUIVertex>(0, 0, 30, 30, label);
+	auto connectVertex = std::make_shared<GUIVertex>(xPos, yPos, 30, 30, label_connectTo);
+	vertices.add(*newVertex, *connectVertex, [this](GUIVertex& vert) {
+		vert.display();
+		scene->addItem(vert.getEllipse());
+		}, 
+		1);
+	std::cout << "Size: " << vertices.getNumVertices() << std::endl;
 }
 
-template<class DataType>
-void GUIGraph<DataType>::populateGraph(const int& vertices)
+void GUIGraph::populateGraph(const int& vertices)
 {
 	/* Create ellipses */
 	//GUIVertex* previous = nullptr;
@@ -67,5 +57,3 @@ void GUIGraph<DataType>::populateGraph(const int& vertices)
 	//	previous = vertex;
 	//}
 }
-
-#endif // !GUI_GRAPH_CPP
