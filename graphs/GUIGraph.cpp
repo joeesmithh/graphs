@@ -18,7 +18,7 @@ void GUIGraph::addVertex(const int& xPos, const int& yPos,
 	auto newVertex = std::make_shared<GUIVertex>(0, 0, 30, 30, label);
 
 	// Initialize new vertex to connect to, if needed
-	auto connectVertex = std::make_shared<GUIVertex>(xPos, yPos, 30, 30, label_connectTo);
+	auto connectVertex = std::make_shared<GUIVertex>(xPos*40, yPos*40, 30, 30, label_connectTo);
 
 	// Connect the two vertices based on key values
 	vertices.add(*newVertex, *connectVertex, [this](GUIVertex& vert) {
