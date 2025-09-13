@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "main_window.h"
 #include <QtWidgets/QApplication>
 #include "ListGraph.h"

@@ -39,7 +39,7 @@ void GUIGraph<DataType>::addVertex()
 	{
 		std::cout << "Data: " << i.getData() << std::endl;
 		i.setColor(QColor(34, 92, 205));
-	});
+		}, [](GUIVertex<int>& i) {});
 }
 
 template<class DataType>

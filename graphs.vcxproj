@@ -21,20 +21,12 @@
   <ItemGroup>
     <ClCompile Include="create_vertex_dialog.cpp" />
     <ClCompile Include="graphs\Driver.cpp" />
-    <ClCompile Include="graphs\graph.cpp" />
     <ClCompile Include="graphs\GraphVertex.cpp" />
     <ClCompile Include="graphs\GUIGraph.cpp" />
     <ClCompile Include="graphs\GUIVertex.cpp" />
     <ClCompile Include="graphs\ListGraph.cpp" />
     <ClCompile Include="graphs\main_window.cpp" />
     <ClCompile Include="graphs\MatrixGraph.cpp" />
-    <ClCompile Include="graphs\PrecondViolatedExcept.cpp" />
-    <ClCompile Include="graphs\stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="create_vertex_dialog.h" />
@@ -44,8 +36,6 @@
     <ClInclude Include="graphs\GUIVertex.h" />
     <ClInclude Include="graphs\ListGraph.h" />
     <ClInclude Include="graphs\MatrixGraph.h" />
-    <ClInclude Include="graphs\PrecondViolatedExcept.h" />
-    <ClInclude Include="graphs\stdafx.h" />
     <QtMoc Include="graphs\main_window.h" />
   </ItemGroup>
   <ItemGroup>
