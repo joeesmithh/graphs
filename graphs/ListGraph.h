@@ -53,10 +53,23 @@ public:
 			vertex and calls a given function once for each vertex visited.
 		@param start A label for the beginning vertex.
 		@param visit A client-defined function that performs an operation on
-			or with each visited vertex. */
-	void depthFirstTraversal (const std::function<void(DataType&)>& visit);
+			or with each visited vertex.
+		@param revisit Lambda function taking reference to vertex data as an argument. */
+	void depthFirstTraversal (const std::function<void(DataType&)>& visit,
+		const std::function<void(DataType&)>& revisit);
 
-	void depthFirst (const std::function<void (std::shared_ptr<GraphVertex<DataType>>)>& visit);
+	/** Depth first traversal helper method. Performs a depth-first traversal
+		on the graph.
+		@param visit A client-defined function that performs an operation on
+			or with each visited vertex.
+		@param revisit Lambda function taking shared pointer to vertex as an argument. */
+	void depthFirst (
+		const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& visit,
+		const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& revisit);
+
+	/** Pops traversed vertices from the traversed stack following a traversal.
+		@param revisit Lambda function taking reference to a data type as an argument. */
+	void untraverse(const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& revisit);
 };
 
 #include "ListGraph.cpp"

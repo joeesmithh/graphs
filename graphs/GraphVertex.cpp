@@ -5,18 +5,19 @@
 #include <iostream>
 
 template<class DataType>
-GraphVertex<DataType>::GraphVertex()
+GraphVertex<DataType>::GraphVertex() : edgeCount(0), isTraversed(false)
 {
 }
 
 template<class DataType>
 GraphVertex<DataType>::GraphVertex(const DataType& data)
-	: data(data), edgeCount(0), isTraversed(false)
+	: GraphVertex()
 {
+	GraphVertex::data = data;
 }
 
 template<class DataType>
-bool GraphVertex<DataType>::equalTo(const GraphVertex<DataType>& other) const
+bool GraphVertex<DataType>::equalTo(GraphVertex<DataType>& other)
 {
 	return data == other.getData();
 }
@@ -115,7 +116,7 @@ void GraphVertex<DataType>::depthFirst(std::shared_ptr<GraphVertex<DataType>> th
 }
 
 template<class DataType>
-DataType GraphVertex<DataType>::getData() const
+DataType& GraphVertex<DataType>::getData()
 {
 	return data;
 }
