@@ -21,11 +21,16 @@ void GUIGraph::addVertex(const int& xPos, const int& yPos,
 	auto connectVertex = std::make_shared<GUIVertex>(xPos*40, yPos*40, 30, 30, label_connectTo);
 
 	// Connect the two vertices based on key values
-	vertices.add(*newVertex, *connectVertex, [this](GUIVertex& vert) {
+	vertices.add(*newVertex, *connectVertex, [this](GUIVertex& left, GUIVertex& right) {
 
 		// Initialize newly created vertices in scene
-		vert.display();
-		scene->addItem(vert.getEllipse());
+		if (left.getEllipse() == nullptr) {
+			left.display();
+			scene->addItem(left.getEllipse());
+		}
+
+		right.display();
+		scene->addItem(right.getEllipse());
 		}, 1);
 }
 

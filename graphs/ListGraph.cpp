@@ -23,18 +23,18 @@ int ListGraph<DataType>::getNumEdges() const
 }
 
 template<class DataType>
-bool ListGraph<DataType>::add(DataType startKey, DataType endKey, const std::function<void(DataType&)>& addAction, int edgeWeight)
+bool ListGraph<DataType>::add(DataType startKey, DataType endKey,
+	const std::function<void(DataType&, DataType&)>& addAction, int edgeWeight)
 {
 	// If no root, create root with startKey and connect it to new vertex with endKey
 	if (root == nullptr)
 	{
 		root = std::make_shared<GraphVertex<DataType>>(startKey);
-		addAction(root->getData());
-
 		auto endVertex = std::make_shared<GraphVertex<DataType>>(endKey);
-		addAction(endVertex->getData());
 		root->connectTo(endVertex);
 		numVertices += 2;
+
+		addAction(root->getData(), endVertex->getData());
 	}
 	else // There was a root, search for start and end key with depth-first search
 	{
@@ -57,9 +57,10 @@ bool ListGraph<DataType>::add(DataType startKey, DataType endKey, const std::fun
 				startPtr->connectTo(endPtr);
 			else {
 				auto endVertex = std::make_shared<GraphVertex<DataType>>(endKey);
-				addAction(endVertex->getData());
 				startPtr->connectTo(endVertex);
 				numVertices++;
+
+				addAction(startPtr->getData(), endVertex->getData());
 			}
 		}
 	}
