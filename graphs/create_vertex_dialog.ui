@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>314</width>
+    <width>414</width>
     <height>65</height>
    </rect>
   </property>
@@ -71,6 +71,9 @@
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
+     <property name="minimum">
+      <number>-99</number>
+     </property>
     </widget>
    </item>
    <item row="1" column="1">
@@ -80,6 +83,12 @@
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+     </property>
+     <property name="minimum">
+      <number>-99</number>
+     </property>
+     <property name="value">
+      <number>1</number>
      </property>
     </widget>
    </item>
@@ -91,6 +100,12 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="text">
+      <string>A</string>
+     </property>
+     <property name="placeholderText">
+      <string/>
+     </property>
     </widget>
    </item>
    <item row="1" column="3">
@@ -100,6 +115,12 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="text">
+      <string>B</string>
+     </property>
+     <property name="placeholderText">
+      <string/>
      </property>
     </widget>
    </item>
