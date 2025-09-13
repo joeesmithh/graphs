@@ -49,7 +49,6 @@ bool ListGraph<DataType>::add(DataType startKey, DataType endKey, int edgeWeight
 		// or new vertex with end key
 		if (startPtr != nullptr)
 		{
-
 			if (endPtr != nullptr)
 				startPtr->connectTo(endPtr);
 			else
@@ -78,12 +77,9 @@ template<class DataType>
 void ListGraph<DataType>::depthFirstTraversal(const std::function<void(DataType&)>& visit,
 	const std::function<void(DataType&)>& revisit)
 {
-	depthFirst([visit](std::shared_ptr<GraphVertex<DataType>> vertex)
-		{
-			visit(vertex->getData());
-		}, [revisit](std::shared_ptr<GraphVertex<DataType>> vertex) {
-			revisit(vertex->getData());
-			});
+	depthFirst(
+		[visit](std::shared_ptr<GraphVertex<DataType>> vertex) {visit(vertex->getData());},
+		[revisit](std::shared_ptr<GraphVertex<DataType>> vertex) {revisit(vertex->getData());});
 }
 
 template<class DataType>
