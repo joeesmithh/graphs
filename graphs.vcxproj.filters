@@ -27,24 +27,12 @@
     <ClInclude Include="graphs\MatrixGraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="graphs\PrecondViolatedExcept.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphs\stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="graphs\GUIVertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphs\GUIGraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="graphs\Driver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="graphs\graph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphs\GraphVertex.cpp">
@@ -57,12 +45,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphs\MatrixGraph.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="graphs\PrecondViolatedExcept.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="graphs\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphs\GUIVertex.cpp">
@@ -80,6 +62,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="create_vertex_dialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="graphs\GUIGraph.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

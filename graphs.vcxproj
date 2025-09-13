@@ -32,7 +32,7 @@
     <QtMoc Include="create_vertex_dialog.h" />
     <ClInclude Include="graphs\GraphInterface.h" />
     <ClInclude Include="graphs\GraphVertex.h" />
-    <ClInclude Include="graphs\GUIGraph.h" />
+    <QtMoc Include="graphs\GUIGraph.h" />
     <ClInclude Include="graphs\GUIVertex.h" />
     <ClInclude Include="graphs\ListGraph.h" />
     <ClInclude Include="graphs\MatrixGraph.h" />
