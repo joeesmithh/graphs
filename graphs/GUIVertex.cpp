@@ -1,27 +1,34 @@
-#ifndef GUI_VERTEX_CPP_
-#define GUI_VERTEX_CPP_
-
 #include "GUIVertex.h"
 #include <qgraphicsscene.h>
+#include <iostream>
 
 
-
-template<class DataType>
-GUIVertex<DataType>::GUIVertex()
+GUIVertex::GUIVertex() : ellipse(nullptr)
 {
 }
 
-template<class DataType>
-GUIVertex<DataType>::GUIVertex(const int& xpos, const int& ypos, const int& width, const int& height,
-							   const DataType& data, QGraphicsItem* parent) : data(data)
+GUIVertex::GUIVertex(const int& xpos, const int& ypos, const int& width,
+	const int& height, const QString& label) : GUIVertex()
 {
-	ellipse = new QGraphicsEllipseItem(0, 0, width, height, parent);
+	this->xPos = xpos;
+	this->yPos = ypos;
+	this->width = width;
+	this->height = height;
+	this->label = label;
+}
+
+void GUIVertex::setColor(const QColor& color)
+{
+	ellipse->setPen(QPen(color));
+}
+
+void GUIVertex::display()
+{
+	ellipse = new QGraphicsEllipseItem(0, 0, width, height);
 	ellipse->setPen(QPen(QColor(255, 255, 255)));
 
-
 	// Create label text as child
-	QVariant label = data;
-	QGraphicsTextItem* text = new QGraphicsTextItem(label.toString(), ellipse);
+	QGraphicsTextItem* text = new QGraphicsTextItem(label, ellipse);
 
 	// Center align label text
 	auto text_width = text->boundingRect().width();
@@ -29,38 +36,26 @@ GUIVertex<DataType>::GUIVertex(const int& xpos, const int& ypos, const int& widt
 	text->setPos(QPointF((width - text_width) / 2, (height - text_height) / 2));
 
 	// Position the ellipse
-	ellipse->setPos(xpos, ypos);
-		
+	ellipse->setPos(xPos, yPos);
 }
 
-template<class DataType>
-void GUIVertex<DataType>::setColor(const QColor& color)
-{
-	ellipse->setPen(QPen(color));
-}
-
-template<class DataType>
-QGraphicsEllipseItem* GUIVertex<DataType>::getEllipse() const
+QGraphicsEllipseItem* GUIVertex::getEllipse() const
 {
 	return ellipse;
 }
 
-template<class DataType>
-DataType GUIVertex<DataType>::getData() const
+QString GUIVertex::getLabel() const
 {
-	return data;
+	return label;
 }
 
-template<class DataType>
-bool GUIVertex<DataType>::operator==(const GUIVertex<DataType>& other) const
+bool GUIVertex::operator==(const GUIVertex& other) const
 {
-	return data == other.data;
+	return label == other.label;
 }
 
-template<class DataType>
-bool GUIVertex<DataType>::operator!=(const GUIVertex<DataType>& other) const
-{
-	return !(*this == other);
-}
 
-#endif // !GUI_VERTEX_CPP_
+bool GUIVertex::operator!=(const GUIVertex& other) const
+{
+	return label != other.label;
+}

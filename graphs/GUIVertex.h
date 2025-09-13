@@ -1,30 +1,32 @@
-#ifndef GUI_VERTEX_H
-#define GUI_VERTEX_H
-
+#include "qstring.h"
 #include <qgraphicsitem.h>
 
-template<class DataType>
 class GUIVertex {
 
 private:
-	DataType data;
+	int xPos;
+	int yPos;
+	int width;
+	int height;
+	QString label;
 	QGraphicsEllipseItem* ellipse;
 
 public:
 	GUIVertex();
 
-	GUIVertex(const int& xpos, const int& ypos, const int& width, const int& height,
-		const DataType& data, QGraphicsItem* parent = (QGraphicsItem*)nullptr);
+	GUIVertex(const int& xpos, const int& ypos,
+		const int& width, const int& height, const QString& datalabel);
 
 	/* Assign a color to the vertex border.
 		@param color The color to assign. */
 	void setColor(const QColor& color);
 
-	QGraphicsEllipseItem* getEllipse() const;
-	DataType getData() const;
+	/* Initialize GUI elements. */
+	void display();
 
-	bool operator==(const GUIVertex<DataType>& other) const;
-	bool operator!=(const GUIVertex<DataType>& other) const;
+	QGraphicsEllipseItem* getEllipse() const;
+	QString getLabel() const;
+
+	bool operator==(const GUIVertex& other) const;
+	bool operator!=(const GUIVertex& other) const;
 };
-#include "GUIVertex.cpp"
-#endif // !GUI_VERTEX_H
