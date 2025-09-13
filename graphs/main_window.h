@@ -18,7 +18,9 @@ private:
 
 	GUIGraph* graph;
 	QAction* addVertex;
+	QAction* traverseStep;
 
+	GUIGraph* getGraph();
 	void createActions();
 };
 

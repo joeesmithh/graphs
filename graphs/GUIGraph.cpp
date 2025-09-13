@@ -28,3 +28,18 @@ void GUIGraph::addVertex(const int& xPos, const int& yPos,
 		scene->addItem(vert.getEllipse());
 		}, 1);
 }
+
+void GUIGraph::traverse()
+{
+	auto visit = [](GUIVertex& vert) {
+		vert.setColor(QColor(0, 0, 255));
+		};
+
+	auto revisit = [](GUIVertex& vert) {
+		vert.setColor(QColor(255, 255, 255));
+		};
+
+	vertices.depthStep(visit, revisit);
+}
+
+

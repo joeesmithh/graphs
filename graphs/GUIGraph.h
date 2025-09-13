@@ -34,4 +34,6 @@ public slots:
 	void addVertex(const int& xPos, const int& yPos,
 		const QString& label, const QString& label_connectTo);
 
+	void traverse();
+
 };

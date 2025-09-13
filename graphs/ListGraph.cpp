@@ -42,7 +42,7 @@ bool ListGraph<DataType>::add(DataType startKey, DataType endKey, const std::fun
 		std::shared_ptr<GraphVertex<DataType>> endPtr = nullptr;
 		depthFirst([startKey, endKey, &startPtr, &endPtr](std::shared_ptr<GraphVertex<DataType>> vertex)
 			{
-				if (startKey == vertex->getData()) 
+				if (startKey == vertex->getData())
 					startPtr = vertex;
 
 				if (endKey == vertex->getData())
@@ -64,13 +64,16 @@ bool ListGraph<DataType>::add(DataType startKey, DataType endKey, const std::fun
 		}
 	}
 
+	clearTraverseOrderStack();
+
 	return false;
 }
 
 template<class DataType>
 bool ListGraph<DataType>::add(DataType startKey, DataType endKey, int edgeWeight)
 {
-	return add(startKey, endKey, [](DataType& data) {}, edgeWeight);
+	// Call add with no revisit lambda function
+	return add(startKey, endKey, nullptr, edgeWeight);
 }
 
 template<class DataType>
@@ -86,7 +89,8 @@ int ListGraph<DataType>::getEdgeWeight(DataType start, DataType end) const
 }
 
 template<class DataType>
-void ListGraph<DataType>::depthFirstTraversal(const std::function<void(DataType&)>& visit,
+void ListGraph<DataType>::depthFirstTraversal(
+	const std::function<void(DataType&)>& visit,
 	const std::function<void(DataType&)>& revisit)
 {
 	depthFirst(
@@ -99,6 +103,9 @@ void ListGraph<DataType>::depthFirst(
 	const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& visit,
 	const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& revisit)
 {
+	// Clear traverse order stack before new traversal
+	clearTraverseOrderStack();
+
 	if (root != nullptr)
 	{
 		root->depthFirst(root, traversedStack, visit);
@@ -108,20 +115,50 @@ void ListGraph<DataType>::depthFirst(
 }
 
 template<class DataType>
+void ListGraph<DataType>::depthStep(
+	const std::function<void(DataType&)>& visit,
+	const std::function<void(DataType&)>& revisit)
+{
+	// If nothing to step through, traverse graph to populate
+	if (traverseOrderStack.empty()) {
+		depthFirst(
+			[](std::shared_ptr<GraphVertex<DataType>> v) {},
+			[revisit](std::shared_ptr<GraphVertex<DataType>> v) {revisit(v->getData());
+			});
+	}
+
+	auto vertex = traverseOrderStack.top();
+	visit(vertex->getData());
+	traverseOrderStack.pop();
+}
+
+template<class DataType>
+void ListGraph<DataType>::clearTraverseOrderStack()
+{
+	while (!traverseOrderStack.empty()) {
+		traverseOrderStack.pop();
+	}
+}
+
+template<class DataType>
 void ListGraph<DataType>::untraverse(const std::function<void(std::shared_ptr<GraphVertex<DataType>>)>& revisit)
 {
 	// Reverse traverse
-	while (traversedStack.size() != 0) {
+	while (!traversedStack.empty()) {
 
-		// Get and pop vertex
+		// Add vertex to traverse order stack
 		auto vertex = traversedStack.top();
-		traversedStack.pop();
 
 		// Reset traversed flag
 		vertex->setIsTraversed(false);
 
 		// Call lambda function parameter with popped vertex as the argument
 		revisit(vertex);
+
+		traverseOrderStack.push(vertex);
+
+		// Pop from traversed stack
+		traversedStack.pop();
 	}
 }
 #endif
