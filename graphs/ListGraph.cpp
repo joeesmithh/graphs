@@ -42,7 +42,7 @@ bool ListGraph<DataType>::add(DataType startKey, DataType endKey, const std::fun
 		std::shared_ptr<GraphVertex<DataType>> endPtr = nullptr;
 		depthFirst([startKey, endKey, &startPtr, &endPtr](std::shared_ptr<GraphVertex<DataType>> vertex)
 			{
-				if (startKey == vertex->getData())
+				if (startKey == vertex->getData()) 
 					startPtr = vertex;
 
 				if (endKey == vertex->getData())
@@ -59,9 +59,8 @@ bool ListGraph<DataType>::add(DataType startKey, DataType endKey, const std::fun
 				auto endVertex = std::make_shared<GraphVertex<DataType>>(endKey);
 				addAction(endVertex->getData());
 				startPtr->connectTo(endVertex);
+				numVertices++;
 			}
-
-			numVertices++;
 		}
 	}
 
