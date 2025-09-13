@@ -7,6 +7,11 @@
 
 
 template<class DataType>
+GUIVertex<DataType>::GUIVertex()
+{
+}
+
+template<class DataType>
 GUIVertex<DataType>::GUIVertex(const int& xpos, const int& ypos, const int& width, const int& height,
 							   const DataType& data, QGraphicsItem* parent) : data(data)
 {

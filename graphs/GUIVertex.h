@@ -11,6 +11,8 @@ private:
 	QGraphicsEllipseItem* ellipse;
 
 public:
+	GUIVertex();
+
 	GUIVertex(const int& xpos, const int& ypos, const int& width, const int& height,
 		const DataType& data, QGraphicsItem* parent = (QGraphicsItem*)nullptr);
 
