@@ -20,7 +20,8 @@ public slots:
 
 
 signals:
-	void add(const int& xpos, const int& ypos, const QVariant& label);
+	void add(const int& xpos, const int& ypos,
+		const QString& label, const QString& connectLabel);
 
 	 
 };

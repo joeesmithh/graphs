@@ -16,7 +16,7 @@ public:
 private:
 	create_vertex_dialog* createDialog;
 
-	GUIGraph<int> graph;
+	GUIGraph* graph;
 	QAction* addVertex;
 
 	void createActions();

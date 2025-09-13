@@ -14,9 +14,11 @@ main_window::main_window(QWidget* parent)
 	createActions();
 
 	/* Scene setup */
-	graph = GUIGraph<int>(this);
-	setCentralWidget(graph.getView());
-	graph.addVertex();
+	graph = new GUIGraph(this);
+	connect(createDialog, &create_vertex_dialog::add, graph, &GUIGraph::addVertex);
+
+	setCentralWidget(graph->getView());
+	//graph.addVertex();
 }
 
 main_window::~main_window()

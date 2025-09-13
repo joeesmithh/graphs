@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>389</width>
+    <width>486</width>
     <height>64</height>
    </rect>
   </property>
@@ -28,16 +28,23 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QLabel" name="labelyPos">
+    <widget class="QLabel" name="label_yPos">
      <property name="text">
       <string>Y-Position</string>
      </property>
     </widget>
    </item>
    <item row="0" column="2">
+    <widget class="QLabel" name="label_label">
+     <property name="text">
+      <string>Label</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
     <widget class="QLabel" name="label_connectTo">
      <property name="text">
-      <string>Connect To:</string>
+      <string>Connect Label</string>
      </property>
     </widget>
    </item>
@@ -48,9 +55,12 @@
     <widget class="QLineEdit" name="edit_yPos"/>
    </item>
    <item row="1" column="2">
-    <widget class="QLineEdit" name="edit_connectTo"/>
+    <widget class="QLineEdit" name="edit_label"/>
    </item>
    <item row="1" column="3">
+    <widget class="QLineEdit" name="edit_connectTo"/>
+   </item>
+   <item row="1" column="4">
     <widget class="QPushButton" name="button_add">
      <property name="text">
       <string>Add</string>

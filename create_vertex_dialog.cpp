@@ -16,5 +16,6 @@ create_vertex_dialog::~create_vertex_dialog()
 void create_vertex_dialog::addPressed() {
 	// TODO:
 	// Need to parse labels before sending signal
-	emit add(edit_xPos, edit_yPos, edit_connectTo);
+	emit add(edit_xPos->text().toInt(), edit_yPos->text().toInt(),
+		edit_label->text(), edit_connectTo->text());
 }
