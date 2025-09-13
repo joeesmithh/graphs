@@ -35,8 +35,17 @@ public:
 		@param end A label for the second vertex.
 		@param edgeWeight The integer weight of the edge.
 		@return True if the edge is created, or false otherwise. */
-	bool add (DataType startKey, DataType endKey, int edgeWeight);
+	bool add(DataType startKey, DataType endKey, const std::function<void(DataType&)>& addAction, int edgeWeight);
 
+	/** Creates an undirected edge in this graph between two vertices
+			that have the given labels. If such vertices do not exist, creates
+			them and adds them to the graph before creating the edge.
+		@param start A label for the first vertex.
+		@param end A label for the second vertex.
+		@param edgeWeight The integer weight of the edge.
+		@return True if the edge is created, or false otherwise. */
+	bool add (DataType startKey, DataType endKey, int edgeWeight);
+	
 	/** Removes an edge from this graph. If a vertex is left with no other edges,
 			it is removed from the graph since this is a connected graph.
 		@param start A label for the vertex at the beginning of the edge.
