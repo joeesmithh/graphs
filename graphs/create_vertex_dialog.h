@@ -1,5 +1,4 @@
 #pragma once
-
 #include <QDialog>
 #include "ui_create_vertex_dialog.h"
 
@@ -13,16 +12,11 @@ public:
 
 private:
 
-
 public slots:
 	void addPressed();
-
-
 
 signals:
 	void add(const int& xpos, const int& ypos,
 		const QString& label, const QString& connectLabel);
-
-	 
 };
 
