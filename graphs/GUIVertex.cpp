@@ -91,13 +91,29 @@ void GUIVertex::makeEdge(const GUIVertex& other)
 
 	// Create edge line
 	QGraphicsLineItem* edge = new QGraphicsLineItem(ellipse);
+	edge->setLine(xOffset, yOffset, to_xOffset, to_yOffset);
 
-	// Set pen
+	// Set line pen
 	linePen.setColor(QColor(255, 255, 255));
 	edge->setPen(linePen);
 
-	// Set line endpoints
-	edge->setLine(xOffset, yOffset, to_xOffset, to_yOffset);
+	// Create arrow
+	QPolygonF polygon;
+	int arrowWidth = 8;
+	int h_ArrowWidth = arrowWidth/2;
+	polygon << QPointF(to_xOffset, to_yOffset)
+		<< QPointF(to_xOffset - arrowWidth *xDir - h_ArrowWidth * yDir,
+			to_yOffset - arrowWidth * yDir + h_ArrowWidth * xDir)
+		<< QPointF(to_xOffset - arrowWidth * xDir + h_ArrowWidth * yDir,
+			to_yOffset - arrowWidth * yDir - h_ArrowWidth * xDir)
+		<< QPointF(to_xOffset, to_yOffset);
+	QGraphicsPolygonItem* arrow = new QGraphicsPolygonItem(polygon, ellipse);
+
+	// Set arrow Pen
+	QPen arrowPen = pen;
+	arrowPen.setWidth(0);
+	arrow->setPen(arrowPen);
+	arrow->setBrush(QBrush(QColor(255, 255, 255), Qt::BrushStyle::SolidPattern));
 }
 
 QGraphicsEllipseItem* GUIVertex::getEllipse() const
