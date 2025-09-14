@@ -22,7 +22,7 @@ public:
 	void setColor(const QColor& color);
 
 	/* Initialize GUI elements. */
-	void display();
+	void display(QGraphicsScene* scene);
 
 	QGraphicsEllipseItem* getEllipse() const;
 	QString getLabel() const;

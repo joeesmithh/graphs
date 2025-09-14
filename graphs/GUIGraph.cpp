@@ -23,13 +23,11 @@ void GUIGraph::addVertex(const int& xPos, const int& yPos,
 	auto addAction = [this](GUIVertex& left, GUIVertex& right) {
 		// Initialize newly created vertices in scene if needed
 		if (left.getEllipse() == nullptr) {
-			left.display();
-			scene->addItem(left.getEllipse());
+			left.display(scene);
 		}
 
 		if (right.getEllipse() == nullptr) {
-			right.display();
-			scene->addItem(right.getEllipse());
+			right.display(scene);
 		}
 		};
 

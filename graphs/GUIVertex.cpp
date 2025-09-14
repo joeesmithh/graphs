@@ -22,7 +22,7 @@ void GUIVertex::setColor(const QColor& color)
 	ellipse->setPen(QPen(color));
 }
 
-void GUIVertex::display()
+void GUIVertex::display(QGraphicsScene* scene)
 {
 	ellipse = new QGraphicsEllipseItem(0, 0, width, height);
 	ellipse->setPen(QPen(QColor(255, 255, 255)));
@@ -37,6 +37,8 @@ void GUIVertex::display()
 
 	// Position the ellipse
 	ellipse->setPos(xPos, yPos);
+
+	scene->addItem(ellipse);
 }
 
 QGraphicsEllipseItem* GUIVertex::getEllipse() const
