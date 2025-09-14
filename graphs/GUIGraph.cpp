@@ -6,7 +6,8 @@ GUIGraph::GUIGraph(QWidget* parent)
 	scene = new QGraphicsScene();
 	view = new QGraphicsView(scene, parent);
 	view->setScene(scene);
-	view->setRenderHint(QPainter::RenderHint::TextAntialiasing);
+	//view->setRenderHint(QPainter::RenderHint::TextAntialiasing);
+	view->setRenderHint(QPainter::RenderHint::Antialiasing);
 }
 
 QGraphicsView* GUIGraph::getView() { return view; }

@@ -1,4 +1,5 @@
 #include "qstring.h"
+#include <qpen.h>
 #include <qgraphicsitem.h>
 
 class GUIVertex {
@@ -9,6 +10,8 @@ private:
 	int width;
 	int height;
 	QString label;
+	QPen pen;
+	QPen linePen;
 	QGraphicsEllipseItem* ellipse;
 
 public:

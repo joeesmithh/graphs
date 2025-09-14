@@ -20,7 +20,8 @@ GUIVertex::GUIVertex(const int& xpos, const int& ypos, const int& width,
 
 void GUIVertex::setColor(const QColor& color)
 {
-	ellipse->setPen(QPen(color));
+	pen.setColor(color);
+	ellipse->setPen(pen);
 }
 
 void GUIVertex::setEdgeColors(const QColor& color)
@@ -28,7 +29,9 @@ void GUIVertex::setEdgeColors(const QColor& color)
 	auto children = ellipse->childItems();
 	for (auto c : children) {
 		if (c->type() == QGraphicsLineItem::Type) {
-			qgraphicsitem_cast<QGraphicsLineItem*>(c)->setPen(QPen(color));
+			QGraphicsLineItem* line = qgraphicsitem_cast<QGraphicsLineItem*>(c);
+			linePen.setColor(color);
+			qgraphicsitem_cast<QGraphicsLineItem*>(c)->setPen(linePen);
 		}
 	}
 }
@@ -37,10 +40,21 @@ void GUIVertex::display(QGraphicsScene* scene)
 {
 	if (ellipse == nullptr) {
 		ellipse = new QGraphicsEllipseItem(0, 0, width, height);
-		ellipse->setPen(QPen(QColor(255, 255, 255)));
+
+		// Set vertex pen
+		pen = QPen(QColor(255, 255, 255));
+		pen.setWidth(2);
+		ellipse->setPen(pen);
+
+		// Set line pen
+		linePen = pen;
+		linePen.setStyle(Qt::DashLine);
 
 		// Create label text as child
 		QGraphicsTextItem* text = new QGraphicsTextItem(label, ellipse);
+		QFont font = text->font();
+		font.setBold(true);
+		text->setFont(font);
 
 		// Center align label text
 		auto text_width = text->boundingRect().width();
@@ -49,7 +63,6 @@ void GUIVertex::display(QGraphicsScene* scene)
 
 		// Position the ellipse
 		ellipse->setPos(xPos, yPos);
-
 		scene->addItem(ellipse);
 	}
 }
@@ -78,7 +91,12 @@ void GUIVertex::makeEdge(const GUIVertex& other)
 
 	// Create edge line
 	QGraphicsLineItem* edge = new QGraphicsLineItem(ellipse);
-	edge->setPen(QPen(QColor(255, 255, 255)));
+
+	// Set pen
+	linePen.setColor(QColor(255, 255, 255));
+	edge->setPen(linePen);
+
+	// Set line endpoints
 	edge->setLine(xOffset, yOffset, to_xOffset, to_yOffset);
 }
 
