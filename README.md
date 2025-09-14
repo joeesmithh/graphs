@@ -3,11 +3,11 @@ A modular graph library written in C++ with adjacency list and adjacency matrix 
 
 <br>
 
-## Documentation
+## Structure
 <table>
     <tr>
         <th>Object</th>
-        <th>Structure</th>
+        <th>Purpose</th>
         <th>Key Members</th>
         <th>Key Operations</th>
     </tr>
