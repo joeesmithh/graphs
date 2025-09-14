@@ -22,13 +22,10 @@ void GUIGraph::addVertex(const int& xPos, const int& yPos,
 
 	auto addAction = [this](GUIVertex& left, GUIVertex& right) {
 		// Initialize newly created vertices in scene if needed
-		if (left.getEllipse() == nullptr) {
 			left.display(scene);
-		}
-
-		if (right.getEllipse() == nullptr) {
 			right.display(scene);
-		}
+			
+			left.makeEdge(right);
 		};
 
 	// Connect the two vertices based on key values
@@ -37,15 +34,20 @@ void GUIGraph::addVertex(const int& xPos, const int& yPos,
 
 void GUIGraph::traverse()
 {
+	auto visitCurrent = [](GUIVertex& vert) {
+		vert.setEdgeColors(QColor(36, 117, 255));
+		};
+
 	auto visit = [](GUIVertex& vert) {
-		vert.setColor(QColor(0, 0, 255));
+		vert.setColor(QColor(36, 117, 255));
 		};
 
 	auto revisit = [](GUIVertex& vert) {
 		vert.setColor(QColor(255, 255, 255));
+		vert.setEdgeColors(QColor(255, 255, 255));
 		};
 
-	vertices.depthStep(visit, revisit);
+	vertices.depthStep(visitCurrent, visit, revisit);
 }
 
 

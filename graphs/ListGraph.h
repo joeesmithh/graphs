@@ -11,6 +11,7 @@ class ListGraph : public GraphInterface<DataType>
 {
 private:
 	std::shared_ptr<GraphVertex<DataType>> root;
+	std::shared_ptr<GraphVertex<DataType>> current;
 
 	// traversedStack: populates on traversal then clears to reset traversal flags
 	std::stack<std::shared_ptr<GraphVertex<DataType>>> traversedStack;
@@ -88,6 +89,7 @@ public:
 		@param visit A client-defined function that performs an operation on
 			or with each visited vertex. */
 	void depthStep(
+		const std::function<void(DataType&)>& visitCurrent,
 		const std::function<void(DataType&)>& visit,
 		const std::function<void(DataType&)>& revisit);
 

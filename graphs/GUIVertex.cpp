@@ -1,6 +1,7 @@
 #include "GUIVertex.h"
 #include <qgraphicsscene.h>
 #include <iostream>
+#include <cmath>
 
 
 GUIVertex::GUIVertex() : ellipse(nullptr)
@@ -22,23 +23,63 @@ void GUIVertex::setColor(const QColor& color)
 	ellipse->setPen(QPen(color));
 }
 
+void GUIVertex::setEdgeColors(const QColor& color)
+{
+	auto children = ellipse->childItems();
+	for (auto c : children) {
+		if (c->type() == QGraphicsLineItem::Type) {
+			qgraphicsitem_cast<QGraphicsLineItem*>(c)->setPen(QPen(color));
+		}
+	}
+}
+
 void GUIVertex::display(QGraphicsScene* scene)
 {
-	ellipse = new QGraphicsEllipseItem(0, 0, width, height);
-	ellipse->setPen(QPen(QColor(255, 255, 255)));
+	if (ellipse == nullptr) {
+		ellipse = new QGraphicsEllipseItem(0, 0, width, height);
+		ellipse->setPen(QPen(QColor(255, 255, 255)));
 
-	// Create label text as child
-	QGraphicsTextItem* text = new QGraphicsTextItem(label, ellipse);
+		// Create label text as child
+		QGraphicsTextItem* text = new QGraphicsTextItem(label, ellipse);
 
-	// Center align label text
-	auto text_width = text->boundingRect().width();
-	auto text_height = text->boundingRect().height();
-	text->setPos(QPointF((width - text_width) / 2, (height - text_height) / 2));
+		// Center align label text
+		auto text_width = text->boundingRect().width();
+		auto text_height = text->boundingRect().height();
+		text->setPos(QPointF((width - text_width) / 2, (height - text_height) / 2));
 
-	// Position the ellipse
-	ellipse->setPos(xPos, yPos);
+		// Position the ellipse
+		ellipse->setPos(xPos, yPos);
 
-	scene->addItem(ellipse);
+		scene->addItem(ellipse);
+	}
+}
+
+void GUIVertex::makeEdge(const GUIVertex& other)
+{
+	int to_xPos = other.xPos;
+	int to_yPos = other.yPos;
+	int to_width = other.width;
+	int to_height = other.height;
+
+	// Calculate distance to other vertex
+	int xDist = to_xPos - xPos;
+	int yDist = to_yPos - yPos;
+	auto dist = sqrt(pow(xDist, 2) + pow(yDist, 2));
+
+	// Calculate unit vector to other vertex
+	auto xDir = (to_xPos - xPos) / dist;
+	auto yDir = (to_yPos - yPos) / dist;
+
+	// Calculate relative line endpoint offsets
+	auto xOffset = (width / 2) + (xDir * width / 2);
+	auto yOffset = (height / 2) + yDir * height / 2;
+	auto to_xOffset = (xDist + (to_width / 2)) - (xDir * width / 2);
+	auto to_yOffset = (yDist + (to_height / 2)) - (yDir * height / 2);
+
+	// Create edge line
+	QGraphicsLineItem* edge = new QGraphicsLineItem(ellipse);
+	edge->setPen(QPen(QColor(255, 255, 255)));
+	edge->setLine(xOffset, yOffset, to_xOffset, to_yOffset);
 }
 
 QGraphicsEllipseItem* GUIVertex::getEllipse() const

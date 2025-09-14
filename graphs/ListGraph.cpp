@@ -53,15 +53,12 @@ bool ListGraph<DataType>::add(DataType startKey, DataType endKey,
 		// or new vertex with end key
 		if (startPtr != nullptr)
 		{
-			if (endPtr != nullptr)
-				startPtr->connectTo(endPtr);
-			else {
-				auto endVertex = std::make_shared<GraphVertex<DataType>>(endKey);
-				startPtr->connectTo(endVertex);
-				numVertices++;
+			if (endPtr == nullptr)
+				endPtr = std::make_shared<GraphVertex<DataType>>(endKey);
 
-				addAction(startPtr->getData(), endVertex->getData());
-			}
+			addAction(startPtr->getData(), endPtr->getData());
+			startPtr->connectTo(endPtr);
+			numVertices++;
 		}
 	}
 
@@ -117,6 +114,7 @@ void ListGraph<DataType>::depthFirst(
 
 template<class DataType>
 void ListGraph<DataType>::depthStep(
+	const std::function<void(DataType&)>& visitCurrent,
 	const std::function<void(DataType&)>& visit,
 	const std::function<void(DataType&)>& revisit)
 {
@@ -128,8 +126,11 @@ void ListGraph<DataType>::depthStep(
 			});
 	}
 
-	auto vertex = traverseOrderStack.top();
-	visit(vertex->getData());
+	if (current != nullptr)
+		visitCurrent(current->getData());
+
+	current = traverseOrderStack.top();
+	visit(current->getData());
 	traverseOrderStack.pop();
 }
 
@@ -139,6 +140,8 @@ void ListGraph<DataType>::clearTraverseOrderStack()
 	while (!traverseOrderStack.empty()) {
 		traverseOrderStack.pop();
 	}
+
+	current = nullptr;
 }
 
 template<class DataType>

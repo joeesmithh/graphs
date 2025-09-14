@@ -17,12 +17,19 @@ public:
 	GUIVertex(const int& xpos, const int& ypos,
 		const int& width, const int& height, const QString& datalabel);
 
-	/* Assign a color to the vertex border.
+	/** Assign a color to the vertex border.
 		@param color The color to assign. */
 	void setColor(const QColor& color);
 
-	/* Initialize GUI elements. */
+	/** Assign a color to the vertex edges.
+		@param color The color to assign. */
+	void setEdgeColors(const QColor& color);
+
+	/** Initialize GUI elements. */
 	void display(QGraphicsScene* scene);
+
+	/** Form an edge to another vertex. */
+	void makeEdge(const GUIVertex& other);
 
 	QGraphicsEllipseItem* getEllipse() const;
 	QString getLabel() const;
