@@ -1,25 +1,85 @@
-## Adjacency List/Matrix Graph ADT
-A modular graph library written in C++ with adjacency list and adjacency matrix representation, traversal algorithms, and a driver—used to validate shortest-path and connectivity algorithms.
+# Graph Visualizer
+
+A C++/Qt application for creating, visualizing, and interacting with graphs.  
+This project implements graph data structures (adjacency list and adjacency matrix) with a unified interface, and provides a GUI for building and traversing graphs in real-time.
 
 <br>
+
+## Features
+
+- **Graph Implementations**  
+  - `ListGraph`: Directed, weighted adjacency list representation.  
+  - `MatrixGraph`: Directed, weighted adjacency matrix representation.  
+  - `GraphInterface`: Abstract interface ensuring consistent operations across implementations.  
+
+- **GUI (Qt-based)**  
+  - Create and connect vertices interactively.  
+  - Real-time graph visualization using `QGraphicsView`.  
+  - Menu-driven controls for adding vertices and traversals.  
+
+- **Core Functionality**  
+  - Add vertices and edges dynamically.  
+  - Track number of vertices and edges.  
+  - Traversal support with reset mechanisms.  
+
+
+<br>
+
+## Demo
 <table>
     <tr>
         <th>Vertex Creation</th>
-        <th>Graph Traversal</th>
+        <th>Depth-First Traversal</th>
     </tr>
     <tr align="center">
         <td>
-            <img src="./images/graphs_add_vertices.gif"><br>
-            Specify x and y position of connecting vertex.
+            <img src="./images/graphs_add_vertices.gif">
         </td>
         <td >
-            <img src="./images/graphs_traverse.gif"><br>
-            Demonstration of a depth-first traversal.
+            <img src="./images/graphs_traverse.gif">
         </td>
     </tr>
-</table><br>
+</table>
 
-## Structure
+<br>
+
+## Project Structure
+- `GraphInterface.h` – Abstract class defining graph operations
+- `MatrixGraph.h / .cpp` – Adjacency matrix graph implementation
+- `ListGraph.h / .cpp` – Adjacency list graph implementation
+- `GraphVertex.h / .cpp` - Data container managed by ListGraph
+- `GUIGraph.h / .cpp` – Graph GUI integration using Qt
+- `GUIVertex.h / .cpp` – Vertex GUI integration using Qt
+- `main_window.*` – Main application window setup
+- `create_vertex_dialog.*` – Dialog for adding vertices
+
+<br>
+
+## Future Improvements
+- Add breadth-first and depth-first traversal visualization.
+- Support for weighted edge editing via GUI.
+- Export/import graphs to file formats (JSON, CSV).
+
+<br>
+
+## Getting Started
+
+### Prerequisites
+- **C++17 or later**
+- **Qt 5 or 6** development libraries
+- **Qt VS Tools** extension
+
+### Build Instructions
+```bash
+# Clone the repository
+git clone https://github.com/joeesmithh/graphs.git
+```
+- Open `graphs.sln`
+- **Qt Project Settings**
+    - Specify **Qt Installation**
+    - Specify **Qt Modules**, `core;gui;widgets`
+
+<!--- ## Implementation
 <table>
     <tr>
         <th>Object</th>
@@ -91,3 +151,4 @@ A modular graph library written in C++ with adjacency list and adjacency matrix 
         </td>
     </tr>
 </table>
+-->
