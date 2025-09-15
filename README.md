@@ -2,6 +2,22 @@
 A modular graph library written in C++ with adjacency list and adjacency matrix representation, traversal algorithms, and a driver—used to validate shortest-path and connectivity algorithms.
 
 <br>
+<table>
+    <tr>
+        <th>Vertex Creation</th>
+        <th>Graph Traversal</th>
+    </tr>
+    <tr align="center">
+        <td>
+            <img src="./images/graphs_add_vertices.gif"><br>
+            Specify x and y position of new vertex to create and connect to.
+        </td>
+        <td >
+            <img src="./images/graphs_traverse.gif"><br>
+            Demonstration of a depth-first traversal.
+        </td>
+    </tr>
+</table><br>
 
 ## Structure
 <table>
@@ -72,24 +88,6 @@ A modular graph library written in C++ with adjacency list and adjacency matrix 
         </td>
         <td >
             [...]
-        </td>
-    </tr>
-</table>
-
-## Demo
-<table>
-    <tr>
-        <th>Before Removal</th>
-        <th>After Removal</th>
-    </tr>
-    <tr align="center">
-        <td>
-            <img src="./images/before-removal.png"><br>
-            We will remove vertex with label '34' at index 3.
-        </td>
-        <td >
-            <img src="./images/after-removal.png"><br>
-            Vertex with label '82' is now at index 3.
         </td>
     </tr>
 </table>
