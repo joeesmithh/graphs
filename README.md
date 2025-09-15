@@ -10,7 +10,7 @@ A modular graph library written in C++ with adjacency list and adjacency matrix 
     <tr align="center">
         <td>
             <img src="./images/graphs_add_vertices.gif"><br>
-            Specify x and y position of new vertex to create and connect to.
+            Specify x and y position of connecting vertex.
         </td>
         <td >
             <img src="./images/graphs_traverse.gif"><br>
