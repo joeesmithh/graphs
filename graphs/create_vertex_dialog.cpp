@@ -13,6 +13,20 @@ create_vertex_dialog::create_vertex_dialog(QWidget *parent)
 create_vertex_dialog::~create_vertex_dialog()
 {}
 
+void create_vertex_dialog::showEvent(QShowEvent* event)
+{
+	QWidget* parent = parentWidget();
+	QPointF parentPos = parent->pos();
+	QSize parentSize = parent->size();
+
+	// Top-center the dialog when shown
+	setGeometry(
+		parentPos.x() + (parentSize.width() - width()) / 2,
+		parentPos.y() + height() / 2, 
+		width(), 
+		height());
+}
+
 void create_vertex_dialog::addPressed() {
 	// TODO:
 	// Need to parse labels before sending signal

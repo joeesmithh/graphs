@@ -12,6 +12,9 @@ public:
 
 private:
 
+protected:
+	void showEvent(QShowEvent* event) override;
+
 public slots:
 	void addPressed();
 
